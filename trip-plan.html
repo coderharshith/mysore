@@ -1,0 +1,1478 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mysore Trip Plan | 1, 2, 3 & 5 Day Itineraries | Travel Guide</title>
+  <meta name="description"
+    content="Plan the perfect Mysore trip with our complete 1-day, 2-day, 3-day and 5-day itineraries. Hotels, transport, budget, best time to visit and everything you need." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* TRIP PLAN PAGE */
+
+    /* ITINERARY TABS */
+    .itin-tabs {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 40px;
+      flex-wrap: wrap;
+    }
+
+    .itin-tab {
+      padding: 12px 24px;
+      border-radius: 30px;
+      border: 2px solid var(--gold);
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      background: transparent;
+      color: var(--gold);
+      transition: var(--transition);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .itin-tab:hover,
+    .itin-tab.active {
+      background: var(--gold);
+      color: var(--white);
+      transform: translateY(-3px);
+      box-shadow: 0 6px 20px rgba(201, 147, 58, 0.35);
+    }
+
+    /* ITINERARY CONTENT */
+    .itin-panel {
+      display: none;
+    }
+
+    .itin-panel.active {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(15px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* DAY CARD */
+    .day-card {
+      background: var(--white);
+      border-radius: 20px;
+      margin-bottom: 24px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(26, 10, 59, 0.08);
+      border-left: 5px solid var(--gold);
+      transition: var(--transition);
+    }
+
+    .day-card:hover {
+      box-shadow: 0 12px 40px rgba(26, 10, 59, 0.15);
+      transform: translateX(6px);
+    }
+
+    .day-header {
+      background: linear-gradient(90deg, var(--royal) 0%, var(--royal-mid) 100%);
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .day-number {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Cinzel', serif;
+      font-size: 1rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(201, 147, 58, 0.4);
+    }
+
+    .day-header-text h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold-light);
+      font-size: 1.2rem;
+      margin-bottom: 4px;
+    }
+
+    .day-header-text p {
+      font-size: 0.82rem;
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .day-body {
+      padding: 28px;
+    }
+
+    .time-slot {
+      display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(201, 147, 58, 0.12);
+      align-items: flex-start;
+    }
+
+    .time-slot:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .time-badge {
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--white);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      white-space: nowrap;
+      flex-shrink: 0;
+      margin-top: 3px;
+      letter-spacing: 1px;
+    }
+
+    .slot-info h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--royal);
+      margin-bottom: 5px;
+    }
+
+    .slot-info p {
+      font-size: 0.85rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+    }
+
+    .slot-meta {
+      display: flex;
+      gap: 12px;
+      margin-top: 8px;
+      flex-wrap: wrap;
+    }
+
+    .slot-tag {
+      font-size: 0.75rem;
+      background: rgba(201, 147, 58, 0.1);
+      color: var(--gold-dark);
+      padding: 3px 10px;
+      border-radius: 12px;
+      font-weight: 600;
+    }
+
+    /* HOTEL CARDS */
+    .hotel-card {
+      background: var(--white);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(26, 10, 59, 0.08);
+      transition: var(--transition);
+    }
+
+    .hotel-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 50px rgba(26, 10, 59, 0.16);
+    }
+
+    .hotel-img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.5s;
+    }
+
+    .hotel-card:hover .hotel-img {
+      transform: scale(1.06);
+    }
+
+    .hotel-img-wrap {
+      overflow: hidden;
+    }
+
+    .hotel-body {
+      padding: 20px;
+    }
+
+    .hotel-stars {
+      color: var(--gold);
+      font-size: 0.9rem;
+      margin-bottom: 6px;
+    }
+
+    .hotel-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--royal);
+      margin-bottom: 8px;
+    }
+
+    .hotel-loc {
+      font-size: 0.8rem;
+      color: var(--gold);
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+
+    .hotel-desc {
+      font-size: 0.83rem;
+      color: var(--text-mid);
+      line-height: 1.65;
+      margin-bottom: 12px;
+    }
+
+    .hotel-price {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--royal);
+      font-weight: 700;
+    }
+
+    .hotel-price span {
+      font-size: 0.8rem;
+      font-family: 'Inter', sans-serif;
+      color: var(--text-light);
+      font-weight: 400;
+    }
+
+    /* BUDGET TABLE */
+    .budget-card {
+      background: linear-gradient(135deg, var(--royal) 0%, var(--royal-mid) 100%);
+      border-radius: 20px;
+      overflow: hidden;
+      padding: 40px;
+      color: var(--white);
+    }
+
+    .budget-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 14px 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      font-size: 0.9rem;
+    }
+
+    .budget-row:last-child {
+      border-bottom: none;
+    }
+
+    .budget-row .label {
+      color: rgba(255, 255, 255, 0.75);
+    }
+
+    .budget-row .amount {
+      color: var(--gold-light);
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .budget-row.total .label {
+      color: var(--white);
+      font-weight: 700;
+      font-size: 1rem;
+    }
+
+    .budget-row.total .amount {
+      color: var(--gold);
+      font-size: 1.2rem;
+    }
+
+    /* TRANSPORT */
+    .transport-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 20px;
+    }
+
+    .transport-card {
+      background: var(--white);
+      border-radius: 16px;
+      padding: 24px;
+      text-align: center;
+      box-shadow: 0 4px 16px rgba(26, 10, 59, 0.07);
+      border-top: 4px solid var(--gold);
+      transition: var(--transition);
+    }
+
+    .transport-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 16px 40px rgba(26, 10, 59, 0.14);
+    }
+
+    .transport-icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+
+    .transport-card h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--royal);
+      margin-bottom: 8px;
+    }
+
+    .transport-card p {
+      font-size: 0.82rem;
+      color: var(--text-mid);
+      line-height: 1.65;
+    }
+
+    /* MAP / CHECKLIST */
+    .checklist {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .check-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--white);
+      border-radius: 10px;
+      padding: 14px 18px;
+      box-shadow: 0 2px 10px rgba(26, 10, 59, 0.06);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .check-row:hover {
+      background: rgba(201, 147, 58, 0.05);
+    }
+
+    .check-row input[type=checkbox] {
+      width: 18px;
+      height: 18px;
+      accent-color: var(--gold);
+      cursor: pointer;
+    }
+
+    .check-row label {
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      cursor: pointer;
+      flex: 1;
+    }
+
+    /* SEASON GUIDE */
+    .season-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 0;
+      border-radius: 16px;
+      overflow: hidden;
+      border: 1px solid rgba(201, 147, 58, 0.2);
+    }
+
+    .season-col {
+      padding: 28px 20px;
+      text-align: center;
+      border-right: 1px solid rgba(201, 147, 58, 0.12);
+    }
+
+    .season-col:last-child {
+      border-right: none;
+    }
+
+    .season-icon {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+
+    .season-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--royal);
+      margin-bottom: 8px;
+      font-weight: 700;
+    }
+
+    .season-months {
+      font-size: 0.78rem;
+      font-weight: 600;
+      color: var(--gold);
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+    }
+
+    .season-desc {
+      font-size: 0.82rem;
+      color: var(--text-mid);
+      line-height: 1.65;
+    }
+
+    .season-rating {
+      display: flex;
+      justify-content: center;
+      gap: 3px;
+      margin-top: 10px;
+      font-size: 0.9rem;
+    }
+
+    /* FAQ */
+    .faq-item {
+      background: var(--white);
+      border-radius: 12px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(26, 10, 59, 0.06);
+    }
+
+    .faq-btn {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 22px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--royal);
+      text-align: left;
+      transition: var(--transition);
+      font-family: 'Inter', sans-serif;
+    }
+
+    .faq-btn:hover {
+      background: rgba(201, 147, 58, 0.04);
+    }
+
+    .faq-arrow {
+      font-size: 1.2rem;
+      transition: transform 0.3s;
+    }
+
+    .faq-item.open .faq-arrow {
+      transform: rotate(90deg);
+    }
+
+    .faq-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s;
+      padding: 0 22px;
+      font-size: 0.88rem;
+      color: var(--text-mid);
+      line-height: 1.75;
+    }
+
+    .faq-item.open .faq-content {
+      max-height: 300px;
+      padding: 0 22px 20px;
+    }
+
+    /* PRINT/DOWNLOAD BUTTON */
+    .download-bar {
+      background: linear-gradient(90deg, var(--gold-dark), var(--gold));
+      padding: 20px 40px;
+      border-radius: 16px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    .download-bar p {
+      color: var(--white);
+      font-size: 1rem;
+      font-weight: 600;
+    }
+
+    @media (max-width:1024px) {
+      .transport-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .season-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    @media (max-width:768px) {
+      .transport-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .season-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .day-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 12px;
+      }
+
+      .itin-tabs {
+        gap: 6px;
+      }
+
+      .itin-tab {
+        padding: 10px 16px;
+        font-size: 0.82rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar transparent" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo" aria-label="Mysore Tourism Home">
+        <div class="logo-emblem" aria-hidden="true">🏰</div>
+        <div class="logo-text">
+          <span class="logo-title">MYSORE</span>
+          <span class="logo-sub">Tourism Guide</span>
+        </div>
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="tourist-places.html" class="nav-link">Tourist Places</a></li>
+        <li><a href="food.html" class="nav-link">Special Food</a></li>
+        <li><a href="art-culture.html" class="nav-link">Art & Culture</a></li>
+        <li><a href="trip-plan.html" class="nav-cta btn active">Plan Your Trip</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="nav-link"><i class="fas fa-home ic"></i> Home</a>
+    <a href="tourist-places.html" class="nav-link"><i class="fas fa-landmark ic"></i> Tourist Places</a>
+    <a href="food.html" class="nav-link"><i class="fas fa-utensils ic"></i> Special Food</a>
+    <a href="art-culture.html" class="nav-link"><i class="fas fa-paint-brush ic"></i> Art &amp; Culture</a>
+    <a href="trip-plan.html" class="nav-link nav-cta" style="margin-top:8px;"><i class="fas fa-map ic"></i> Plan Your
+      Trip</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="page-hero" id="page-hero" aria-label="Trip Plan header">
+    <div class="page-hero-bg"
+      style="background-image:url('https://images.unsplash.com/photo-1659126574791-13313aa424bd?auto=format&fit=crop&w=1800&q=85');"
+      role="img" aria-label="Mysore Palace illuminated at night"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+      <div class="page-hero-tag" aria-hidden="true">Your Complete Guide</div>
+      <h1>Plan Your<br />Mysore Trip</h1>
+      <p>From 1-day whirlwind tours to 5-day cultural immersions — here's everything you need to plan the perfect Mysore
+        journey.</p>
+    </div>
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- BEST TIME TO VISIT -->
+  <section class="section section-cream" id="best-time" aria-label="Best time to visit Mysore">
+    <div class="container">
+      <div class="text-center fade-in" style="margin-bottom:40px;">
+        <div class="section-label" aria-hidden="true">When to Go</div>
+        <h2 class="section-title">Best Time to<br />Visit <span class="text-gold">Mysore</span></h2>
+      </div>
+
+      <div class="season-grid fade-in" role="list">
+        <div class="season-col" role="listitem" style="background:rgba(255,183,77,0.06);">
+          <div class="season-icon"><i class="fas fa-sun ic" style="font-size:2.5rem;"></i></div>
+          <div class="season-name">Spring</div>
+          <div class="season-months">MARCH – MAY</div>
+          <p class="season-desc">Hot and dry. Good for offseason pricing and less crowds. Morning visits only advised.
+            28°C–40°C.</p>
+          <div class="season-rating">⭐⭐⭐</div>
+        </div>
+        <div class="season-col" role="listitem" style="background:rgba(33,150,243,0.06);">
+          <div class="season-icon"><i class="fas fa-cloud-rain ic" style="font-size:2.5rem;"></i></div>
+          <div class="season-name">Monsoon</div>
+          <div class="season-months">JUNE – SEPT</div>
+          <p class="season-desc">Lush green landscapes. Gardens and parks are beautiful. Occasional heavy rain.
+            22°C–30°C.</p>
+          <div class="season-rating">⭐⭐⭐⭐</div>
+        </div>
+        <div class="season-col" role="listitem"
+          style="background:rgba(201,147,58,0.08);border: 2px solid rgba(201,147,58,0.3);">
+          <div class="season-icon"><i class="fas fa-star ic" style="font-size:2.5rem;"></i></div>
+          <div class="season-name">Autumn ★ BEST</div>
+          <div class="season-months">OCTOBER – NOV</div>
+          <p class="season-desc">Dasara in October! Perfect weather. 22°C–30°C. The most magical season to visit Mysore.
+          </p>
+          <div class="season-rating">⭐⭐⭐⭐⭐</div>
+        </div>
+        <div class="season-col" role="listitem" style="background:rgba(173,216,230,0.08);">
+          <div class="season-icon"><i class="fas fa-snowflake ic" style="font-size:2.5rem;"></i></div>
+          <div class="season-name">Winter</div>
+          <div class="season-months">DEC – FEB</div>
+          <p class="season-desc">Pleasant and cool. Ideal for outdoor sightseeing. Nights can be chilly (15°C). Most
+            comfortable season.</p>
+          <div class="season-rating">⭐⭐⭐⭐⭐</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ITINERARY SECTION -->
+  <section class="section section-cream-dark" id="itinerary" aria-label="Trip itineraries for Mysore">
+    <div class="container">
+      <div class="text-center fade-in" style="margin-bottom:40px;">
+        <div class="section-label" aria-hidden="true">Day-by-Day Plans</div>
+        <h2 class="section-title">Mysore <span class="text-gold">Itineraries</span></h2>
+        <p class="section-subtitle" style="margin:12px auto 0;">Choose your trip length and explore our curated
+          day-by-day plans crafted by local experts.</p>
+      </div>
+
+      <!-- TAB SELECTOR -->
+      <div class="itin-tabs fade-in" role="tablist" aria-label="Select trip duration">
+        <button class="itin-tab active" onclick="switchItin('1day')" role="tab" aria-selected="true" id="tab-1day">1
+          Day</button>
+        <button class="itin-tab" onclick="switchItin('2day')" role="tab" aria-selected="false" id="tab-2day">2
+          Days</button>
+        <button class="itin-tab" onclick="switchItin('3day')" role="tab" aria-selected="false" id="tab-3day">3
+          Days</button>
+        <button class="itin-tab" onclick="switchItin('5day')" role="tab" aria-selected="false" id="tab-5day">5
+          Days</button>
+      </div>
+
+      <!-- 1 DAY ITINERARY -->
+      <div class="itin-panel active" id="panel-1day" role="tabpanel" aria-labelledby="tab-1day">
+        <div class="day-card fade-in" role="article">
+          <div class="day-header">
+            <div class="day-number" aria-hidden="true">Day 1</div>
+            <div class="day-header-text">
+              <h3>The Essential Mysore Experience</h3>
+              <p>Palace · Chamundi Hills · Zoo · Devaraja Market · Palace Lighting</p>
+            </div>
+          </div>
+          <div class="day-body">
+            <div class="time-slot">
+              <span class="time-badge">7:00 AM</span>
+              <div class="slot-info">
+                <h4>Filter Coffee & Breakfast at Mylari Hotel</h4>
+                <p>Kick off with Mysore's most famous dosas and aromatic filter coffee. Arrive early — the queue starts
+                  at 6:30 AM and they close by 11 AM. Order the neer dosa and coconut chutney combo.</p>
+                <div class="slot-meta">
+                  <span class="slot-tag">💰 Budget: ₹60–100/person</span>
+                  <span class="slot-tag">📍 Nazarbad</span>
+                </div>
+              </div>
+            </div>
+            <div class="time-slot">
+              <span class="time-badge">9:00 AM</span>
+              <div class="slot-info">
+                <h4>Mysore Palace (Amba Vilas)</h4>
+                <p>Explore the palace's 12 temples, golden-domed durbar halls, and the royal armoury and gemstone
+                  collection. Audio guides are highly recommended. Check the palace tour schedule for guided
+                  walkthroughs in English.</p>
+                <div class="slot-meta">
+                  <span class="slot-tag">💰 ₹100/adult</span>
+                  <span class="slot-tag">⏱ 2–3 hours</span>
+                  <span class="slot-tag">📷 Photography ₹50 extra</span>
+                </div>
+              </div>
+            </div>
+            <div class="time-slot">
+              <span class="time-badge">12:00 PM</span>
+              <div class="slot-info">
+                <h4>Devaraja Market</h4>
+                <p>A riot of colour — this century-old market overflows with garlands of jasmine, heaps of turmeric,
+                  stalls of Mysore silk, incense, sandalwood soap, and local fruits. Don't leave without buying premium
+                  Mysore agarbatti (incense).</p>
+                <div class="slot-meta">
+                  <span class="slot-tag">🛒 Free to Browse</span>
+                  <span class="slot-tag">🛍️ Best for souvenirs</span>
+                </div>
+              </div>
+            </div>
+            <div class="time-slot">
+              <span class="time-badge">1:30 PM</span>
+              <div class="slot-info">
+                <h4>Lunch at Hotel Dasaprakash</h4>
+                <p>Enjoy a full Karnataka vegetarian thali with unlimited rice, sambar, rasam, kootu, papad, and payasam
+                  for dessert. One of Mysore's most celebrated restaurants for genuine local fare since 1956.</p>
+                <div class="slot-meta">
+                  <span class="slot-tag">💰 ₹120–200/person</span>
+                  <span class="slot-tag">⏱ 45 mins</span>
+                </div>
+              </div>
+            </div>
+            <div class="time-slot">
+              <span class="time-badge">3:00 PM</span>
+              <div class="slot-info">
+                <h4>Chamundi Hills</h4>
+                <p>Drive up to the Chamundeshwari Temple, or for the adventurous, climb the 1,008 steps. Don't miss the
+                  colossal Nandi bull statue halfway up. Views of the Mysore city spread below are spectacular in the
+                  afternoon light.</p>
+                <div class="slot-meta">
+                  <span class="slot-tag">Free entry</span>
+                  <span class="slot-tag">⏱ 1.5 hrs</span>
+                  <span class="slot-tag">👗 Cover legs & shoulders</span>
+                </div>
+              </div>
+            </div>
+            <div class="time-slot">
+              <span class="time-badge">6:00 PM</span>
+              <div class="slot-info">
+                <h4>Evening Snack: Churmuri & Street Food</h4>
+                <p>Head to Lansdowne Building area for evening street food — churmuri, mirchi bajji, corn, and local
+                  chaat. Sip on seasonal fresh juice from stalls near Statue Circle or Gandhi Square.</p>
+                <div class="slot-meta">
+                  <span class="slot-tag">💰 ₹20–100</span>
+                  <span class="slot-tag">🌇 Golden hour views</span>
+                </div>
+              </div>
+            </div>
+            <div class="time-slot">
+              <span class="time-badge">7:00 PM</span>
+              <div class="slot-info">
+                <h4>✨ Palace Illumination (Sunday Only)</h4>
+                <p>Every Sunday (7–7:30 PM), the Mysore Palace is lit with 97,000 bulbs — a sight that defines Mysore
+                  for most visitors. Arrive 30 mins early for a good spot on the viewing lawns. For weekday visits, the
+                  interior lighting is still spectacular at night.</p>
+                <div class="slot-meta">
+                  <span class="slot-tag">⭐ Must-see highlight</span>
+                  <span class="slot-tag">📷 Perfect for photography</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 2 DAY ITINERARY -->
+      <div class="itin-panel" id="panel-2day" role="tabpanel" aria-labelledby="tab-2day">
+        <div class="day-card fade-in" role="article">
+          <div class="day-header">
+            <div class="day-number" aria-hidden="true">Day 1</div>
+            <div class="day-header-text">
+              <h3>Palace, Hills & Culture</h3>
+              <p>Palace · Market · Chamundi · Jaganmohan Art Gallery · Palace Night</p>
+            </div>
+          </div>
+          <div class="day-body">
+            <div class="time-slot">
+              <span class="time-badge">7:30 AM</span>
+              <div class="slot-info">
+                <h4>Breakfast at Mylari + KSIC Silk Showroom</h4>
+                <p>After breakfast, head to the KSIC Silk Showroom to browse (and possibly buy) authentic Mysore Silk
+                  sarees with GI tag certification. The weaving demonstration is educational and free.</p>
+              </div>
+            </div>
+            <div class="time-slot">
+              <span class="time-badge">10:00 AM</span>
+              <div class="slot-info">
+                <h4>Mysore Palace (Full Tour)</h4>
+                <p>Take the complete 3-hour palace experience including the audio guide, all 5 durbar halls, the royal
+                  throne room, and the picture gallery with portraits of all 24 Wadiyar rulers.</p>
+              </div>
+            </div>
+            <div class="time-slot">
+              <span class="time-badge">2:00 PM</span>
+              <div class="slot-info">
+                <h4>Chamundi Hills + Karanji Lake</h4>
+                <p>Visit Chamundi Hills temple and then descend to Karanji Lake Nature Park for bird watching and a walk
+                  in the butterfly enclosure. Flamingos and painted storks visible from October–February.</p>
+              </div>
+            </div>
+            <div class="time-slot">
+              <span class="time-badge">5:00 PM</span>
+              <div class="slot-info">
+                <h4>Jaganmohan Palace Art Gallery</h4>
+                <p>See the jade artefacts, European oil paintings, rare musical instruments, and ivory exhibition in
+                  this lesser-known but extraordinary royal museum just 5 minutes from the main palace.</p>
+              </div>
+            </div>
+            <div class="time-slot">
+              <span class="time-badge">7:30 PM</span>
+              <div class="slot-info">
+                <h4>Dinner at Green Hotel Restaurant</h4>
+                <p>Heritage dining at its finest. Karnataka home cuisine in a 1920s property. Try the local thali or
+                  Bisi Bele Bath. Evening cultural performances occasionally happen in the courtyard.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="day-card fade-in" role="article">
+          <div class="day-header">
+            <div class="day-number" aria-hidden="true">Day 2</div>
+            <div class="day-header-text">
+              <h3>Day Trips: Srirangapatna & Brindavan</h3>
+              <p>Fort Island · Tipu's Palace · KRS Dam · Musical Fountain</p>
+            </div>
+          </div>
+          <div class="day-body">
+            <div class="time-slot">
+              <span class="time-badge">8:00 AM</span>
+              <div class="slot-info">
+                <h4>Srirangapatna Island Visit</h4>
+                <p>16 km from Mysore. Explore Tipu Sultan's fortress, Dariya Daulat Bagh palace museum, Gumbaz
+                  mausoleum, and the Ranganathaswamy riverside temple. Hire a local guide (₹200) for rich historical
+                  context.</p>
+                <div class="slot-meta">
+                  <span class="slot-tag">⏱ 3–4 hrs</span>
+                  <span class="slot-tag">🏛️ Rich history</span>
+                </div>
+              </div>
+            </div>
+            <div class="time-slot">
+              <span class="time-badge">1:00 PM</span>
+              <div class="slot-info">
+                <h4>Lunch at KRS Dam Area</h4>
+                <p>Several restaurants near KRS Dam serve decent Karnataka fare. Pre-book at Mysore Ruchi for better
+                  quality. Or carry a packed lunch from Mysore city.</p>
+              </div>
+            </div>
+            <div class="time-slot">
+              <span class="time-badge">2:30 PM</span>
+              <div class="slot-info">
+                <h4>Brindavan Gardens & KRS Dam</h4>
+                <p>Walk the terraced gardens, take a boat ride on the reservoir, and enjoy the lush greenery. Make sure
+                  you're there for the musical fountain show at 6:30 PM (entry separate for the fountain viewing area).
+                </p>
+                <div class="slot-meta">
+                  <span class="slot-tag">🎶 Fountain: 6:30–7:30 PM</span>
+                  <span class="slot-tag">💰 ₹15 entry</span>
+                </div>
+              </div>
+            </div>
+            <div class="time-slot">
+              <span class="time-badge">8:30 PM</span>
+              <div class="slot-info">
+                <h4>Return to Mysore – Shop for Souvenirs</h4>
+                <p>Sayyaji Rao Road is lined with government emporiums. Buy: Mysore Pak from Sri Krishna Sweets,
+                  sandalwood products from Cauvery Emporium, agarbatti from any market stall.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 3 DAY ITINERARY -->
+      <div class="itin-panel" id="panel-3day" role="tabpanel" aria-labelledby="tab-3day">
+        <div class="day-card fade-in" role="article">
+          <div class="day-header">
+            <div class="day-number" aria-hidden="true">Day 1</div>
+            <div class="day-header-text">
+              <h3>Mysore City Heritage</h3>
+              <p>Palace · Markets · Zoo · Temple · Night Illumination</p>
+            </div>
+          </div>
+          <div class="day-body">
+            <div class="time-slot">
+              <span class="time-badge">7:00 AM</span>
+              <div class="slot-info">
+                <h4>Breakfast at Mylari Hotel</h4>
+                <p>The iconic masala dosa and filter coffee start to the day.</p>
+              </div>
+            </div>
+            <div class="time-slot">
+              <span class="time-badge">9:00 AM</span>
+              <div class="slot-info">
+                <h4>Mysore Palace Full Tour + Art Gallery</h4>
+                <p>Complete palace tour followed by Jaganmohan Palace Art Gallery.</p>
+              </div>
+            </div>
+            <div class="time-slot">
+              <span class="time-badge">1:00 PM</span>
+              <div class="slot-info">
+                <h4>Devaraja Market & Silk Shopping</h4>
+                <p>Browse the historic market and visit KSIC for Mysore Silk.</p>
+              </div>
+            </div>
+            <div class="time-slot">
+              <span class="time-badge">3:30 PM</span>
+              <div class="slot-info">
+                <h4>Mysore Zoo (Sri Chamarajendra Zoological Gardens)</h4>
+                <p>One of Asia's best zoos with gorillas, white tigers, flamingos, and hippos. Rent a battery vehicle if
+                  tired.</p>
+              </div>
+            </div>
+            <div class="time-slot">
+              <span class="time-badge">6:00 PM</span>
+              <div class="slot-info">
+                <h4>Karanji Lake Sunset Walk</h4>
+                <p>Golden hour at the lake, watch herons and cormorants settle for the night.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="day-card fade-in" role="article">
+          <div class="day-header">
+            <div class="day-number" aria-hidden="true">Day 2</div>
+            <div class="day-header-text">
+              <h3>Srirangapatna, Somnathpur & Brindavan</h3>
+              <p>Fort Island · Hoysala Temple · Musical Fountain Show</p>
+            </div>
+          </div>
+          <div class="day-body">
+            <div class="time-slot">
+              <span class="time-badge">7:30 AM</span>
+              <div class="slot-info">
+                <h4>Early Start: Somnathpur Hoysala Temple</h4>
+                <p>The finest preserved Hoysala temple (38 km). Best visited in morning light for photography. Hire
+                  local guide for detailed carvings interpretation.</p>
+              </div>
+            </div>
+            <div class="time-slot">
+              <span class="time-badge">11:00 AM</span>
+              <div class="slot-info">
+                <h4>Srirangapatna Island</h4>
+                <p>Explore Tipu Sultan's fortress, Gumbaz mausoleum, Dariya Daulat Bagh and riverside temple.</p>
+              </div>
+            </div>
+            <div class="time-slot">
+              <span class="time-badge">4:00 PM</span>
+              <div class="slot-info">
+                <h4>Brindavan Gardens & Musical Fountain</h4>
+                <p>Stroll the terraced gardens and catch the famous 7 PM musical fountain show.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="day-card fade-in" role="article">
+          <div class="day-header">
+            <div class="day-number" aria-hidden="true">Day 3</div>
+            <div class="day-header-text">
+              <h3>Culture, Yoga & Sacred Sites</h3>
+              <p>Yoga Class · Chamundi · Railway Museum · St. Philomena's Cathedral</p>
+            </div>
+          </div>
+          <div class="day-body">
+            <div class="time-slot">
+              <span class="time-badge">6:00 AM</span>
+              <div class="slot-info">
+                <h4>Yoga Class at KPJAYI (Ashtanga Institute)</h4>
+                <p>Book a Mysore-style yoga session at the world-renowned K. Pattabhi Jois Ashtanga Yoga Institute.
+                  Drop-in classes available for practitioners with experience.</p>
+              </div>
+            </div>
+            <div class="time-slot">
+              <span class="time-badge">9:00 AM</span>
+              <div class="slot-info">
+                <h4>Breakfast + St. Philomena's Cathedral</h4>
+                <p>Visit the stunning Gothic cathedral, one of Asia's largest. Marvel at the stained glass interior and
+                  the ancient catacombs below.</p>
+              </div>
+            </div>
+            <div class="time-slot">
+              <span class="time-badge">11:00 AM</span>
+              <div class="slot-info">
+                <h4>Mysore Rail Museum</h4>
+                <p>Vintage steam locomotives including the 1800s Horse Drawn Fairy Queen, royal saloon coaches, and a
+                  toy train joy ride through museum grounds.</p>
+              </div>
+            </div>
+            <div class="time-slot">
+              <span class="time-badge">3:00 PM</span>
+              <div class="slot-info">
+                <h4>Chamundi Hills (Climb the 1,008 Steps)</h4>
+                <p>Challenge yourself with the historic stairway climb, stopping at the Nandi bull and various shrines
+                  along the way. The Chamundeshwari temple at sunset is breathtaking.</p>
+              </div>
+            </div>
+            <div class="time-slot">
+              <span class="time-badge">7:00 PM</span>
+              <div class="slot-info">
+                <h4>Farewell Dinner at Lalitha Mahal Palace Hotel</h4>
+                <p>End your Mysore adventure with a royal dinner at the former guest palace of the Maharaja. The dining
+                  hall is magnificent. Dress elegantly.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 5 DAY ITINERARY -->
+      <div class="itin-panel" id="panel-5day" role="tabpanel" aria-labelledby="tab-5day">
+        <div
+          style="background:linear-gradient(135deg,var(--royal),var(--royal-mid));border-radius:20px;padding:40px;color:var(--white);margin-bottom:24px;"
+          class="fade-in" role="article">
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.5rem;color:var(--gold-light);margin-bottom:16px;">
+            5-Day Royal Karnataka Circuit</h3>
+          <p style="color:rgba(255,255,255,0.75);font-size:0.95rem;line-height:1.8;">The ultimate Mysore experience –
+            combining city heritage, day trips, yoga, shopping, cultural performances, and the grand Karnataka
+            landscape.</p>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;">
+            <div class="timeline-item" style="color:var(--white);">
+              <div class="timeline-day">Day 1</div>
+              <div class="timeline-content">
+                <h4 style="color:var(--gold-light);">Mysore City Heritage</h4>
+                <p style="color:rgba(255,255,255,0.65);">Palace · Zoo · Karanji Lake · Devaraja Market · Night
+                  Illumination</p>
+              </div>
+            </div>
+            <div class="timeline-item" style="color:var(--white);">
+              <div class="timeline-day">Day 2</div>
+              <div class="timeline-content">
+                <h4 style="color:var(--gold-light);">Culture & Crafts</h4>
+                <p style="color:rgba(255,255,255,0.65);">Silk Factory Tour · Art Gallery · Yoga · Cathedral · Rail
+                  Museum</p>
+              </div>
+            </div>
+            <div class="timeline-item" style="color:var(--white);">
+              <div class="timeline-day">Day 3</div>
+              <div class="timeline-content">
+                <h4 style="color:var(--gold-light);">Srirangapatna & Somnathpur</h4>
+                <p style="color:rgba(255,255,255,0.65);">Fort Island · Hoysala Temple · Brindavan Gardens</p>
+              </div>
+            </div>
+            <div class="timeline-item" style="color:var(--white);">
+              <div class="timeline-day">Day 4</div>
+              <div class="timeline-content">
+                <h4 style="color:var(--gold-light);">Nagarhole & Coorg Day Trip</h4>
+                <p style="color:rgba(255,255,255,0.65);">Nagarhole Tiger Reserve Safari · Coffee Plantation · Waterfall
+                </p>
+              </div>
+            </div>
+            <div class="timeline-item" style="color:var(--white);">
+              <div class="timeline-day">Day 5</div>
+              <div class="timeline-content">
+                <h4 style="color:var(--gold-light);">Wayanad Kerala Border</h4>
+                <p style="color:rgba(255,255,255,0.65);">Bandipur Forest · Ooty Connection · Shopping · Departure</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- HOTELS -->
+  <section class="section section-cream" id="hotels" aria-label="Hotels in Mysore">
+    <div class="container">
+      <div class="text-center fade-in" style="margin-bottom:40px;">
+        <div class="section-label" aria-hidden="true">Where to Stay</div>
+        <h2 class="section-title">Best Hotels in <span class="text-gold">Mysore</span></h2>
+        <p class="section-subtitle" style="margin:12px auto 0;">From royal heritage suites to budget-friendly
+          guesthouses — options for every kind of traveller.</p>
+      </div>
+
+      <div class="grid-3 fade-in">
+        <article class="hotel-card">
+          <div class="hotel-img-wrap">
+            <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=600&q=75"
+              alt="Lalitha Mahal Palace Hotel luxury heritage exterior" class="hotel-img" loading="lazy" />
+          </div>
+          <div class="hotel-body">
+            <div class="hotel-stars" aria-label="5 star hotel">⭐⭐⭐⭐⭐</div>
+            <h3 class="hotel-name">Lalitha Mahal Palace Hotel</h3>
+            <div class="hotel-loc">📍 Mysore Palace, White Rock, Mysore</div>
+            <p class="hotel-desc">The former guest palace of the Wadiyar maharajas, now managed by ITDC. An
+              architectural masterpiece with a dramatic staircase, billiard room, rooftop swimming pool, and impeccable
+              old-world service. The most iconic place to stay in Mysore.</p>
+            <div class="hotel-price">₹8,000 <span>/ night onwards</span></div>
+          </div>
+        </article>
+
+        <article class="hotel-card">
+          <div class="hotel-img-wrap">
+            <img src="https://images.unsplash.com/photo-1582719508461-905c673771fd?w=600&q=75"
+              alt="Royal Orchid Metropole hotel pool and garden" class="hotel-img" loading="lazy" />
+          </div>
+          <div class="hotel-body">
+            <div class="hotel-stars" aria-label="4 star hotel">⭐⭐⭐⭐</div>
+            <h3 class="hotel-name">Royal Orchid Metropole</h3>
+            <div class="hotel-loc">📍 Jhansi Lakshmi Bai Road, Mysore</div>
+            <p class="hotel-desc">A stately 1920 heritage property that was the British officers' guest house. The pool,
+              bar, and restaurant are excellent. Period furniture, lush gardens, and attentive staff. Walking distance
+              to the palace and main market.</p>
+            <div class="hotel-price">₹4,500 <span>/ night onwards</span></div>
+          </div>
+        </article>
+
+        <article class="hotel-card">
+          <div class="hotel-img-wrap">
+            <img src="https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?w=600&q=75"
+              alt="Windflower Prakruthi Resort Natural spa Mysore" class="hotel-img" loading="lazy" />
+          </div>
+          <div class="hotel-body">
+            <div class="hotel-stars" aria-label="4 star hotel">⭐⭐⭐⭐</div>
+            <h3 class="hotel-name">The Windflower Prakruthi Resort</h3>
+            <div class="hotel-loc">📍 Bogadi, Mysore</div>
+            <p class="hotel-desc">A serene eco-resort with traditional mud cottages, Ayurvedic spa, organic farm, yoga
+              pavilion, and swimming tank. Perfect for travellers seeking wellness and nature alongside Mysore's
+              cultural highlights.</p>
+            <div class="hotel-price">₹5,500 <span>/ night onwards</span></div>
+          </div>
+        </article>
+
+        <article class="hotel-card">
+          <div class="hotel-img-wrap">
+            <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=600&q=75"
+              alt="Green Hotel heritage budget accommodation Mysore" class="hotel-img" loading="lazy" />
+          </div>
+          <div class="hotel-body">
+            <div class="hotel-stars" aria-label="3 star hotel">⭐⭐⭐</div>
+            <h3 class="hotel-name">The Green Hotel</h3>
+            <div class="hotel-loc">📍 Vinoba Road, Mysore</div>
+            <p class="hotel-desc">A charming budget-luxury option in a 1920s heritage bungalow. Filled with antiques,
+              heritage charm, and a beautiful garden. The eco-friendly ethos means all profits go to local charities.
+              Excellent homemade food.</p>
+            <div class="hotel-price">₹2,000 <span>/ night onwards</span></div>
+          </div>
+        </article>
+
+        <article class="hotel-card">
+          <div class="hotel-img-wrap">
+            <img src="https://images.unsplash.com/photo-1555854877-bab8e564b8d5?w=600&q=75"
+              alt="Budget guesthouse near Mysore Palace" class="hotel-img" loading="lazy" />
+          </div>
+          <div class="hotel-body">
+            <div class="hotel-stars" aria-label="2 star hotel">⭐⭐</div>
+            <h3 class="hotel-name">Hotel Mayura Hoysala</h3>
+            <div class="hotel-loc">📍 2 Jhansi Lakshmi Bai Road, Mysore</div>
+            <p class="hotel-desc">A government-run KSTDC hotel with clean rooms, good value for money, close to the
+              palace. Very popular with domestic travelers for its location, reliability, and simple but delicious
+              Karnataka-style restaurant.</p>
+            <div class="hotel-price">₹1,200 <span>/ night onwards</span></div>
+          </div>
+        </article>
+
+        <article class="hotel-card">
+          <div class="hotel-img-wrap">
+            <img src="https://images.unsplash.com/photo-1529290130-4ca3753253ae?w=600&q=75"
+              alt="Backpacker hostel common room with travelers" class="hotel-img" loading="lazy" />
+          </div>
+          <div class="hotel-body">
+            <div class="hotel-stars" aria-label="Budget option">🛏️</div>
+            <h3 class="hotel-name">Zostel Mysore</h3>
+            <div class="hotel-loc">📍 Nazarbad, Mysore</div>
+            <p class="hotel-desc">Mysore's best backpacker hostel with social common areas, clean dorms, private rooms,
+              and excellent travel planning support. Great community of international backpackers. Walking distance to
+              food and nightlife zones.</p>
+            <div class="hotel-price">₹400 <span>/ dorm bed · ₹1,200 private</span></div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRANSPORT -->
+  <section class="section section-royal" id="transport" aria-label="How to reach and get around Mysore">
+    <div class="container">
+      <div class="text-center fade-in" style="margin-bottom:40px;">
+        <div class="section-label" aria-hidden="true">Get There & Around</div>
+        <h2 class="section-title text-gold">Getting To & Around Mysore</h2>
+      </div>
+      <div class="transport-grid fade-in">
+        <div class="transport-card" role="article">
+          <div class="transport-icon" aria-hidden="true">✈️</div>
+          <h4>By Air</h4>
+          <p>Mysore Airport (MYQ) has limited flights from Bengaluru, Chennai, and Delhi. Kempegowda International
+            Airport (BLR) in Bengaluru is 170 km away. Take KSRTC AC bus or hire a cab to Mysore from BLR Airport
+            (₹1,800–2,500).</p>
+        </div>
+        <div class="transport-card" role="article">
+          <div class="transport-icon" aria-hidden="true">🚂</div>
+          <h4>By Train</h4>
+          <p>Mysore Railway Station is connected to Bengaluru (Shatabdi – 2 hrs), Chennai (Chamundi Express – 8 hrs),
+            and Mumbai (Kaveri Express – 24 hrs). Book 2–3 weeks in advance on IRCTC. Mysore is well-connected by rail.
+          </p>
+        </div>
+        <div class="transport-card" role="article">
+          <div class="transport-icon" aria-hidden="true">🚌</div>
+          <h4>By Bus</h4>
+          <p>KSRTC runs frequent buses from Bengaluru (3 hrs, ₹150–600 AC), Ooty (3.5 hrs), Coorg (3 hrs), and all major
+            Karnataka cities. Mysore's KSRTC bus stand is the hub for all intercity connections.</p>
+        </div>
+        <div class="transport-card" role="article">
+          <div class="transport-icon" aria-hidden="true">🛺</div>
+          <h4>Auto Rickshaw</h4>
+          <p>The most fun way around Mysore's compact city. Negotiate a half-day or full-day rate (₹500–800) with a
+            driver-guide who knows the sites. Most auto drivers speak basic English. Meter autos also available.</p>
+        </div>
+        <div class="transport-card" role="article">
+          <div class="transport-icon" aria-hidden="true">🚗</div>
+          <h4>Cab / Self Drive</h4>
+          <p>Ola and Rapido work well in Mysore. For day trips to Srirangapatna, Somnathpur, and Brindavan, hire a cab
+            for the day (₹1,500–2,500). Self-drive rentals from Zoomcar or Drivezy are available.</p>
+        </div>
+        <div class="transport-card" role="article">
+          <div class="transport-icon" aria-hidden="true">🚲</div>
+          <h4>Cycling</h4>
+          <p>Mysore is surprisingly cycle-friendly within the palace area. Several workshops near Gandhi Square rent
+            bicycles (₹50–100/day). Dedicated cycle lanes near the zoo and palace grounds make it safe and scenic.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- BUDGET PLANNER -->
+  <section class="section section-cream-dark" id="budget" aria-label="Budget planning for Mysore trip">
+    <div class="container">
+      <div class="text-center fade-in" style="margin-bottom:40px;">
+        <div class="section-label" aria-hidden="true">Plan Your Spend</div>
+        <h2 class="section-title">Mysore <span class="text-gold">Budget Planner</span></h2>
+      </div>
+
+      <div class="grid-2 fade-in" style="align-items:start;gap:40px;">
+        <div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--royal);margin-bottom:20px;">
+            Budget Traveller (per day)</h3>
+          <div class="budget-card" aria-label="Budget traveller daily costs">
+            <div class="budget-row"><span class="label">🏨 Accommodation (Zostel/Budget Hotel)</span><span
+                class="amount">₹400–800</span></div>
+            <div class="budget-row"><span class="label">🍛 All Meals (darshinis + street food)</span><span
+                class="amount">₹200–350</span></div>
+            <div class="budget-row"><span class="label">🚌 Local Transport (auto + bus)</span><span
+                class="amount">₹200–350</span></div>
+            <div class="budget-row"><span class="label">🏛️ Entry Tickets</span><span class="amount">₹150–250</span>
+            </div>
+            <div class="budget-row"><span class="label">🛒 Miscellaneous & Shopping</span><span
+                class="amount">₹200–500</span></div>
+            <div class="budget-row total"><span class="label">💰 Total Daily Budget</span><span class="amount">₹1,150 –
+                2,250</span></div>
+          </div>
+        </div>
+        <div>
+          <h3 style="font-family:'Playfair Display',serif;font-size:1.4rem;color:var(--royal);margin-bottom:20px;">
+            Premium Traveller (per day)</h3>
+          <div class="budget-card" aria-label="Premium traveller daily costs">
+            <div class="budget-row"><span class="label">🏨 Heritage Hotel (Royal Orchid/Lalitha Mahal)</span><span
+                class="amount">₹4,500–10,000</span></div>
+            <div class="budget-row"><span class="label">🍽️ Restaurant Dining (heritage restaurants)</span><span
+                class="amount">₹1,000–2,500</span></div>
+            <div class="budget-row"><span class="label">🚗 Private Cab / Driver for Day</span><span
+                class="amount">₹800–1,500</span></div>
+            <div class="budget-row"><span class="label">🎭 Cultural Experiences & Guide</span><span
+                class="amount">₹500–1,200</span></div>
+            <div class="budget-row"><span class="label">🛍️ Silk Saree / Sandalwood Shopping</span><span
+                class="amount">₹3,000–15,000</span></div>
+            <div class="budget-row total"><span class="label">💰 Total Daily Budget</span><span class="amount">₹9,800 –
+                30,200</span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TRIP CHECKLIST -->
+  <section class="section section-cream" id="checklist" aria-label="Mysore packing checklist">
+    <div class="container">
+      <div class="grid-2" style="align-items:start;gap:48px;">
+        <div class="fade-in">
+          <div class="section-label" aria-hidden="true">Pack Right</div>
+          <h2 class="section-title">Mysore Packing <span class="text-gold">Checklist</span></h2>
+          <p class="section-subtitle" style="margin-bottom:28px;">Tick off everything before your trip to ensure a
+            comfortable, seamless Mysore experience.</p>
+
+          <div class="checklist" role="group" aria-label="Trip packing checklist">
+            <div class="check-row">
+              <input type="checkbox" id="c1" />
+              <label for="c1">Government Photo ID (Aadhaar / Passport) for entry tickets</label>
+            </div>
+            <div class="check-row">
+              <input type="checkbox" id="c2" />
+              <label for="c2">Comfortable cotton or linen clothing (light, breathable)</label>
+            </div>
+            <div class="check-row">
+              <input type="checkbox" id="c3" />
+              <label for="c3">Temple-appropriate attire (cover shoulders & knees)</label>
+            </div>
+            <div class="check-row">
+              <input type="checkbox" id="c4" />
+              <label for="c4">Good walking shoes & flip-flops for temple visits</label>
+            </div>
+            <div class="check-row">
+              <input type="checkbox" id="c5" />
+              <label for="c5">Sunscreen, sunglasses, and a hat (especially May–Aug)</label>
+            </div>
+            <div class="check-row">
+              <input type="checkbox" id="c6" />
+              <label for="c6">Rain jacket or umbrella (June–September monsoon)</label>
+            </div>
+            <div class="check-row">
+              <input type="checkbox" id="c7" />
+              <label for="c7">Small cash wallet with ₹500–1,000 in small notes</label>
+            </div>
+            <div class="check-row">
+              <input type="checkbox" id="c8" />
+              <label for="c8">Power bank (for long sightseeing days)</label>
+            </div>
+            <div class="check-row">
+              <input type="checkbox" id="c9" />
+              <label for="c9">Camera or smartphone with good camera</label>
+            </div>
+            <div class="check-row">
+              <input type="checkbox" id="c10" />
+              <label for="c10">Reservations confirmed: Hotel & Train/Flight bookings</label>
+            </div>
+          </div>
+        </div>
+
+        <div class="fade-in fade-in-delay-2">
+          <div class="section-label" aria-hidden="true">Common Questions</div>
+          <h2 class="section-title">Traveller <span class="text-gold">FAQs</span></h2>
+
+          <div id="faqList" role="list">
+            <div class="faq-item open" role="listitem">
+              <button class="faq-btn" onclick="toggleFaq(this)" aria-expanded="true">
+                <span>When is the best time to visit Mysore?</span>
+                <span class="faq-arrow">›</span>
+              </button>
+              <div class="faq-content">
+                October is the peak festival month (Dasara) — an absolute must. November–February offers ideal weather
+                for sightseeing (22–28°C). October bookings should be made 3 months in advance. Monsoon (June–September)
+                is green and scenic but occasional heavy rain can disrupt outdoor plans.
+              </div>
+            </div>
+
+            <div class="faq-item" role="listitem">
+              <button class="faq-btn" onclick="toggleFaq(this)" aria-expanded="false">
+                <span>How many days are enough for Mysore?</span>
+                <span class="faq-arrow">›</span>
+              </button>
+              <div class="faq-content">
+                2 full days cover the core Mysore city highlights. 3–4 days allows you to add Brindavan Gardens,
+                Somnathpur, Srirangapatna, and cultural experiences. 5 days gives you time for day trips to Coorg
+                (Kodagu), Ooty, or Nagarhole wildlife sanctuary.
+              </div>
+            </div>
+
+            <div class="faq-item" role="listitem">
+              <button class="faq-btn" onclick="toggleFaq(this)" aria-expanded="false">
+                <span>Is Mysore safe for solo female travellers?</span>
+                <span class="faq-arrow">›</span>
+              </button>
+              <div class="faq-content">
+                Yes — Mysore is one of the safest cities in India for solo travellers. It's regularly rated as one of
+                the cleanest and most liveable cities. The local culture is conservative and respectful. Stick to
+                well-lit areas after 10 PM, prefer app cabs over unlicensed autos at night.
+              </div>
+            </div>
+
+            <div class="faq-item" role="listitem">
+              <button class="faq-btn" onclick="toggleFaq(this)" aria-expanded="false">
+                <span>Can I visit Mysore on a day trip from Bengaluru?</span>
+                <span class="faq-arrow">›</span>
+              </button>
+              <div class="faq-content">
+                Yes — Mysore is 150 km from Bengaluru, about 3 hours by road. KSRTC Volvo buses run every 30 minutes
+                from Bengaluru bus stand. Take the 6 AM bus to arrive by 9 AM, see the palace and market, and return by
+                8 PM. However, staying overnight lets you experience the Sunday palace illumination.
+              </div>
+            </div>
+
+            <div class="faq-item" role="listitem">
+              <button class="faq-btn" onclick="toggleFaq(this)" aria-expanded="false">
+                <span>What should I buy as souvenirs from Mysore?</span>
+                <span class="faq-arrow">›</span>
+              </button>
+              <div class="faq-content">
+                Top Mysore souvenirs: (1) Mysore Pak from Sri Krishna Sweets, (2) Mysore Silk from KSIC showroom, (3)
+                Sandalwood soap, oil, and figurines from Cauvery Emporium, (4) Mysore Agarbatti (incense) from Devaraja
+                Market, (5) Rosewood inlay boxes, (6) Channapatna lacquered toys. Always buy silk and sandalwood from
+                government-certified shops.
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" style="display:inline-flex;">
+          <div class="logo-emblem">🏰</div>
+          <div class="logo-text">
+            <span class="logo-title">MYSORE</span>
+            <span class="logo-sub">Tourism Guide</span>
+          </div>
+        </a>
+        <p>Your complete guide to the City of Palaces – discover heritage, flavours, art, and adventure in Karnataka's
+          royal heartland.</p>
+        <div class="footer-social" role="list">
+          <div class="social-btn" role="listitem" title="Facebook"><i class="fab fa-facebook-f ic"></i></div>
+          <div class="social-btn" role="listitem" title="Instagram"><i class="fab fa-instagram ic"></i></div>
+          <div class="social-btn" role="listitem" title="YouTube"><i class="fab fa-youtube ic"></i></div>
+          <div class="social-btn" role="listitem" title="Twitter"><i class="fab fa-x-twitter ic"></i></div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="tourist-places.html">Tourist Places</a></li>
+          <li><a href="food.html">Special Food</a></li>
+          <li><a href="art-culture.html">Art & Culture</a></li>
+          <li><a href="trip-plan.html">Trip Planner</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Trip Planning</h4>
+        <ul>
+          <li><a href="#itinerary">Day Itineraries</a></li>
+          <li><a href="#hotels">Best Hotels</a></li>
+          <li><a href="#transport">How to Reach</a></li>
+          <li><a href="#budget">Budget Guide</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><span><i class="fas fa-map-marker-alt ic"></i> Mysuru, Karnataka 570001</span></li>
+          <li><span><i class="fas fa-phone ic"></i> +91 821 242 2096</span></li>
+          <li><span><i class="fas fa-envelope ic"></i> info@mysoretourism.in</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Mysore Tourism Guide · All rights reserved</span>
+      <span>developed by Udbhavi, Tarun, suppreeth</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    // Itinerary tab switcher
+    function switchItin(id) {
+      document.querySelectorAll('.itin-panel').forEach(p => p.classList.remove('active'));
+      document.querySelectorAll('.itin-tab').forEach(t => {
+        t.classList.remove('active');
+        t.setAttribute('aria-selected', 'false');
+      });
+      document.getElementById('panel-' + id).classList.add('active');
+      document.getElementById('tab-' + id).classList.add('active');
+      document.getElementById('tab-' + id).setAttribute('aria-selected', 'true');
+    }
+
+    // FAQ accordion
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      document.querySelectorAll('.faq-item').forEach(i => {
+        i.classList.remove('open');
+        i.querySelector('.faq-btn').setAttribute('aria-expanded', 'false');
+      });
+      if (!isOpen) {
+        item.classList.add('open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    }
+  </script>
+</body>
+
+</html>

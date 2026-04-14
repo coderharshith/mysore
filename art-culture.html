@@ -1,0 +1,1013 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mysore Art & Culture | Painting, Silk, Dance, Music & Crafts</title>
+  <meta name="description"
+    content="Discover Mysore's rich art and culture – Mysore Painting, Dasara festival, Bharatanatyam dance, Carnatic music, Mysore Silk, Sandalwood carving, and Yakshagana." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* ART & CULTURE PAGE */
+    .art-hero-overlay {
+      background: linear-gradient(to bottom,
+          rgba(26, 10, 59, 0.6) 0%,
+          rgba(139, 55, 32, 0.4) 50%,
+          rgba(26, 10, 59, 0.78) 100%);
+    }
+
+    /* ART FORM CARDS */
+    .art-card {
+      background: var(--white);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(26, 10, 59, 0.08);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .art-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 24px 60px rgba(26, 10, 59, 0.18);
+    }
+
+    .art-img {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .art-card:hover .art-img {
+      transform: scale(1.07);
+    }
+
+    .art-img-wrap {
+      overflow: hidden;
+      position: relative;
+    }
+
+    .art-label {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: 12px 16px;
+      background: linear-gradient(to top, rgba(26, 10, 59, 0.85), transparent);
+      color: var(--gold-light);
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      font-weight: 600;
+    }
+
+    .art-body {
+      padding: 24px;
+    }
+
+    .art-title {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem;
+      color: var(--royal);
+      margin-bottom: 10px;
+    }
+
+    .art-desc {
+      font-size: 0.87rem;
+      color: var(--text-mid);
+      line-height: 1.78;
+    }
+
+    /* SILK SECTION */
+    .silk-feature {
+      display: grid;
+      grid-template-columns: 1fr 1.2fr;
+      gap: 60px;
+      align-items: center;
+    }
+
+    .silk-img {
+      border-radius: 20px;
+      width: 100%;
+      height: 500px;
+      object-fit: cover;
+      box-shadow: var(--shadow-royal);
+    }
+
+    .silk-text .list-check {
+      margin-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .check-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+
+    .check-icon {
+      width: 24px;
+      height: 24px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--gold), var(--gold-dark));
+      color: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.75rem;
+      flex-shrink: 0;
+      margin-top: 2px;
+    }
+
+    /* DASARA SECTION */
+    .dasara-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 40px;
+      align-items: start;
+    }
+
+    .dasara-timeline-wrap {
+      background: rgba(255, 255, 255, 0.06);
+      border: 1px solid rgba(201, 147, 58, 0.2);
+      border-radius: 20px;
+      padding: 32px;
+    }
+
+    .dasara-timeline-wrap h3 {
+      font-family: 'Playfair Display', serif;
+      color: var(--gold-light);
+      font-size: 1.3rem;
+      margin-bottom: 24px;
+    }
+
+    /* CRAFT CARDS */
+    .craft-card {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      background: var(--white);
+      border-radius: 14px;
+      padding: 20px;
+      box-shadow: 0 4px 16px rgba(26, 10, 59, 0.06);
+      border-left: 4px solid var(--gold);
+      transition: var(--transition);
+    }
+
+    .craft-card:hover {
+      transform: translateX(6px);
+      box-shadow: 0 8px 28px rgba(26, 10, 59, 0.13);
+    }
+
+    .craft-icon {
+      font-size: 2.5rem;
+      flex-shrink: 0;
+    }
+
+    .craft-info h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--royal);
+      margin-bottom: 4px;
+    }
+
+    .craft-info p {
+      font-size: 0.82rem;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+
+    .craft-tag {
+      font-size: 0.7rem;
+      color: var(--gold-dark);
+      background: rgba(201, 147, 58, 0.1);
+      padding: 2px 10px;
+      border-radius: 12px;
+      margin-top: 6px;
+      display: inline-block;
+      font-weight: 600;
+    }
+
+    /* DANCE/MUSIC TABS */
+    .tab-group {
+      margin-top: 32px;
+    }
+
+    .tab-buttons {
+      display: flex;
+      gap: 4px;
+      border-bottom: 2px solid rgba(201, 147, 58, 0.2);
+      padding-bottom: 0;
+      margin-bottom: 28px;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      padding: 12px 22px;
+      background: transparent;
+      border: none;
+      border-bottom: 3px solid transparent;
+      cursor: pointer;
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--text-light);
+      transition: var(--transition);
+      margin-bottom: -2px;
+    }
+
+    .tab-btn:hover,
+    .tab-btn.active {
+      color: var(--royal);
+      border-bottom-color: var(--gold);
+    }
+
+    .tab-panel {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .tab-panel.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .performing-art-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    .pa-card {
+      background: var(--white);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 16px rgba(26, 10, 59, 0.07);
+      display: flex;
+      flex-direction: column;
+    }
+
+    .pa-card img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+    }
+
+    .pa-body {
+      padding: 18px;
+    }
+
+    .pa-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.1rem;
+      color: var(--royal);
+      margin-bottom: 8px;
+    }
+
+    .pa-desc {
+      font-size: 0.85rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+    }
+
+    /* MYSORE PAINTING */
+    .painting-feature {
+      background: linear-gradient(135deg, var(--royal), var(--royal-mid));
+      border-radius: 24px;
+      padding: 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .painting-feature h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      color: var(--gold-light);
+      margin-bottom: 16px;
+    }
+
+    .painting-feature p {
+      color: rgba(255, 255, 255, 0.75);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin-bottom: 20px;
+    }
+
+    .painting-img {
+      width: 100%;
+      height: 380px;
+      object-fit: cover;
+      border-radius: 16px;
+      border: 3px solid rgba(201, 147, 58, 0.3);
+    }
+
+    /* CULTURAL EVENTS TABLE */
+    .events-table-wrap {
+      background: var(--white);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 4px 20px rgba(26, 10, 59, 0.08);
+    }
+
+    @media (max-width:768px) {
+      .silk-feature {
+        grid-template-columns: 1fr;
+      }
+
+      .dasara-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .performing-art-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .painting-feature {
+        grid-template-columns: 1fr;
+        padding: 32px;
+      }
+
+      .painting-feature h2 {
+        font-size: 1.6rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar transparent" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo" aria-label="Mysore Tourism Home">
+        <div class="logo-emblem" aria-hidden="true">🏰</div>
+        <div class="logo-text">
+          <span class="logo-title">MYSORE</span>
+          <span class="logo-sub">Tourism Guide</span>
+        </div>
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="tourist-places.html" class="nav-link">Tourist Places</a></li>
+        <li><a href="food.html" class="nav-link">Special Food</a></li>
+        <li><a href="art-culture.html" class="nav-link active">Art & Culture</a></li>
+        <li><a href="trip-plan.html" class="nav-cta btn">Plan Your Trip</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="nav-link"><i class="fas fa-home ic"></i> Home</a>
+    <a href="tourist-places.html" class="nav-link"><i class="fas fa-landmark ic"></i> Tourist Places</a>
+    <a href="food.html" class="nav-link"><i class="fas fa-utensils ic"></i> Special Food</a>
+    <a href="art-culture.html" class="nav-link"><i class="fas fa-paint-brush ic"></i> Art &amp; Culture</a>
+    <a href="trip-plan.html" class="nav-link nav-cta" style="margin-top:8px;"><i class="fas fa-map ic"></i> Plan Your
+      Trip</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="page-hero" id="page-hero" aria-label="Art and Culture header">
+    <div class="page-hero-bg"
+      style="background-image:url('https://images.unsplash.com/photo-1587474260584-136574528ed5?w=1800&q=85');"
+      role="img" aria-label="Mysore Dasara elephant procession"></div>
+    <div class="page-hero-overlay art-hero-overlay"></div>
+    <div class="page-hero-content">
+      <div class="page-hero-tag" aria-hidden="true">Heritage & Tradition</div>
+      <h1>Art & Culture<br />of Mysore</h1>
+      <p>Six centuries of royal patronage birthed a cultural tapestry unlike any other – from Mysore Paintings to
+        Carnatic Music, Silk to Sacred Dance.</p>
+    </div>
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- INTRO STATS -->
+  <div class="quickinfo" role="complementary" aria-label="Cultural statistics">
+    <div class="quickinfo-inner">
+      <div class="quickinfo-item">
+        <span class="qi-icon" aria-hidden="true"><i class="fas fa-palette ic"></i></span>
+        <div>
+          <div class="qi-label">Cultural Heritage</div>
+          <div class="qi-value">600+ Years of Royal Patronage</div>
+        </div>
+      </div>
+      <div class="quickinfo-item">
+        <span class="qi-icon" aria-hidden="true"><i class="fas fa-scroll ic"></i></span>
+        <div>
+          <div class="qi-label">Silk Production</div>
+          <div class="qi-value">GI-Tagged Mysore Silk</div>
+        </div>
+      </div>
+      <div class="quickinfo-item">
+        <span class="qi-icon" aria-hidden="true"><i class="fas fa-theater-masks ic"></i></span>
+        <div>
+          <div class="qi-label">Performing Arts</div>
+          <div class="qi-value">Bharatanatyam · Yakshagana</div>
+        </div>
+      </div>
+      <div class="quickinfo-item">
+        <span class="qi-icon" aria-hidden="true"><i class="fas fa-landmark ic"></i></span>
+        <div>
+          <div class="qi-label">UNESCO Nominee</div>
+          <div class="qi-value">Hoysala Temples (2023 inscribed)</div>
+        </div>
+      </div>
+      <div class="quickinfo-item">
+        <span class="qi-icon" aria-hidden="true"><i class="fas fa-spa ic"></i></span>
+        <div>
+          <div class="qi-label">Yoga</div>
+          <div class="qi-value">Birthplace of Ashtanga Yoga</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ART FORMS OVERVIEW -->
+  <section class="section section-cream" id="art-forms" aria-label="Traditional art forms of Mysore">
+    <div class="container">
+      <div class="text-center fade-in" style="margin-bottom:48px;">
+        <div class="section-label" aria-hidden="true">Living Traditions</div>
+        <h2 class="section-title">Traditional Art Forms<br />of <span class="text-gold">Mysore</span></h2>
+        <p class="section-subtitle" style="margin:12px auto 0;">Mysore's cultural wealth is unparalleled in South India.
+          These art forms were nurtured by successive Wadiyar maharajas who were themselves accomplished musicians,
+          painters, and scholars.</p>
+      </div>
+
+      <div class="grid-3 fade-in" id="artGrid">
+        <article class="art-card" role="article">
+          <div class="art-img-wrap">
+            <img src="images/mysore_painting_art.png"
+              alt="Traditional Mysore painting with gold leaf depicting Hindu deities" loading="lazy" />
+            <div class="art-label">Visual Art</div>
+          </div>
+          <div class="art-body">
+            <h3 class="art-title">Mysore Painting</h3>
+            <p class="art-desc">A classical South Indian painting style developed during the Vijayanagara Empire and
+              refined under Mysore Wadiyars. Distinctive features include delicate brushwork, use of natural pigments,
+              ivory-smooth gesso ground, and 22-karat gold leaf embossed using a stylus. Themes are primarily Hindu
+              deities — Ganesha, Krishna, Saraswati — rendered in graceful, elongated figures with jewel-like detail.
+            </p>
+          </div>
+        </article>
+
+        <article class="art-card" role="article">
+          <div class="art-img-wrap">
+            <img src="images/mysore_silk_saree.png" alt="Mysore Silk sarees with gold zari border" loading="lazy" />
+            <div class="art-label">Textile Heritage</div>
+          </div>
+          <div class="art-body">
+            <h3 class="art-title">Mysore Silk</h3>
+            <p class="art-desc">The GI-tagged Mysore Crepe Silk is woven at the government-owned Karnataka Silk
+              Industries Corporation (KSIC). Pure mulberry silk threads are combined with real gold-silver zari to
+              create the hallmark lustre. Each 6-meter saree takes a master weaver 4–7 days. The Mysore Silk is the
+              official fabric for the robes of the idol at Chamundeshwari Temple.</p>
+          </div>
+        </article>
+
+        <article class="art-card" role="article">
+          <div class="art-img-wrap">
+            <img src="https://images.unsplash.com/photo-1617196035154-1e7e6e28b0db?w=600&q=75"
+              alt="Bharatanatyam dancer in traditional costume with elaborate jewellery" loading="lazy" />
+            <div class="art-label">Classical Dance</div>
+          </div>
+          <div class="art-body">
+            <h3 class="art-title">Bharatanatyam & Yakshagana</h3>
+            <p class="art-desc">The Mysore gharana of Bharatanatyam is one of the most refined classical dance
+              traditions in India. Yakshagana — a dramatic coastal-Karnataka folk form blending dance, music, dialogue,
+              and elaborate costume — is frequently performed at Dasara and cultural events. Both are actively taught at
+              the Karnataka Lalitha Kala Academy in Mysore.</p>
+          </div>
+        </article>
+
+        <article class="art-card" role="article">
+          <div class="art-img-wrap">
+            <img src="https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?w=600&q=75"
+              alt="Carnatic music performance with veena and mridangam" loading="lazy" />
+            <div class="art-label">Classical Music</div>
+          </div>
+          <div class="art-body">
+            <h3 class="art-title">Carnatic Music</h3>
+            <p class="art-desc">Mysore was a premier centre of Carnatic music under the Wadiyars. Maharaja
+              Jayachamarajendra Wadiyar was a gifted musician who composed over 500 krithis. The city produced legendary
+              musicians including violinist T. Chowdiah, who invented the 7-stringed violin. Annual Sangeetha Sammelana
+              music festivals continue the tradition.</p>
+          </div>
+        </article>
+
+        <article class="art-card" role="article">
+          <div class="art-img-wrap">
+            <img src="images/mysore_sandalwood_carving.png" alt="Sandalwood carving artisan at work in Mysore workshop"
+              loading="lazy" />
+            <div class="art-label">Craft Heritage</div>
+          </div>
+          <div class="art-body">
+            <h3 class="art-title">Sandalwood Carving</h3>
+            <p class="art-desc">Mysore (and Karnataka at large) is the world's largest producer of Indian sandalwood.
+              Master craftspeople hand-carve intricate figurines, elephants, jewellery boxes, and religious icons from
+              aged sandalwood. The carving process requires 10+ years of training. Government Silk & Sandalwood Showroom
+              (Cauvery Emporium) is the best place to buy authentic pieces.</p>
+          </div>
+        </article>
+
+        <article class="art-card" role="article">
+          <div class="art-img-wrap">
+            <img src="https://images.unsplash.com/photo-1581992652564-44c42f5ad3ad?w=600&q=75"
+              alt="Channapatna wooden toys colorful lacquered dolls" loading="lazy" />
+            <div class="art-label">Folk Craft</div>
+          </div>
+          <div class="art-body">
+            <h3 class="art-title">Channapatna & Bidri Crafts</h3>
+            <p class="art-desc">Channapatna (45 km from Mysore) is famous for its lacquered wooden toys — colourful,
+              smooth, and non-toxic — made on hand-turned lathes. UNESCO and Geographical Indication recognised.
+              Bidriware (from nearby Bidar) is a distinctive silver-inlay metalwork on zinc-copper alloy with origins in
+              the 15th-century Bahmani courts.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- MYSORE PAINTING FEATURE -->
+  <section class="section section-cream-dark" id="painting" aria-label="Mysore painting tradition">
+    <div class="container">
+      <div class="painting-feature fade-in" role="article">
+        <div>
+          <div class="section-label" style="color:var(--gold);" aria-hidden="true">Living Art Form</div>
+          <h2>Mysore Painting –<br />India's Golden Art</h2>
+          <p>Originating in the Vijayanagara Empire period, Mysore Painting matured under the Wadiyar kings who employed
+            court painters to adorn palace walls, manuscripts, and ritual objects.</p>
+          <p>The technique involves preparation of a gesso surface (chalk and glue foundation), underdrawing in
+            pencil/ink, applying natural pigments mixed with egg-white binders, and finally pressing 22-karat gold foil
+            for jewellery, halos, and architectural details using a stylus on a wet adhesive base.</p>
+          <div class="ingredient-chips" style="margin-top:16px;" aria-label="Key features">
+            <span class="ingredient-chip">🌿 Natural Pigments</span>
+            <span class="ingredient-chip">✨ 22K Gold Leaf</span>
+            <span class="ingredient-chip">🖌️ Fine Squirrel Hair Brush</span>
+            <span class="ingredient-chip">🐚 Gesso Ground</span>
+          </div>
+          <div style="margin-top:24px;">
+            <a href="trip-plan.html" class="btn btn-gold" id="learn-art-btn">Plan Art Heritage Tour</a>
+          </div>
+        </div>
+        <div>
+          <img src="images/mysore_painting_art.png" alt="Intricate Mysore painting of a deity with gold leaf detail"
+            class="painting-img" loading="lazy" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MYSORE SILK FEATURE -->
+  <section class="section section-cream" id="silk" aria-label="Mysore Silk tradition">
+    <div class="container">
+      <div class="silk-feature fade-in">
+        <div>
+          <img src="images/mysore_silk_saree.png"
+            alt="Beautiful Mysore Silk sarees with gold zari – GI tagged pure mulberry silk" class="silk-img"
+            loading="lazy" />
+        </div>
+        <div class="silk-text">
+          <div class="section-label" aria-hidden="true">GI-Tagged Heritage</div>
+          <h2 class="section-title">Mysore Silk –<br />Woven in <span class="text-gold">Gold & Light</span></h2>
+          <p class="section-subtitle">The most prized silk fabric in India, produced for over 150 years in Mysore under
+            royal and then government patronage.</p>
+
+          <div class="list-check" role="list">
+            <div class="check-item" role="listitem">
+              <div class="check-icon" aria-hidden="true">✓</div>
+              <span><strong>Pure Mulberry Silk:</strong> 100% Bombyx mori silk from Karnataka sericulture farms — the
+                only silk used in royal wedding sarees.</span>
+            </div>
+            <div class="check-item" role="listitem">
+              <div class="check-icon" aria-hidden="true">✓</div>
+              <span><strong>Real Zari:</strong> Authentic gold-silver threads (not synthetic) hand-woven into borders
+                and pallu for the distinctive Mysore lustre.</span>
+            </div>
+            <div class="check-item" role="listitem">
+              <div class="check-icon" aria-hidden="true">✓</div>
+              <span><strong>KSRTC Certification:</strong> Each piece sold at official KSIC showrooms comes with a
+                certificate guaranteeing authenticity and purity.</span>
+            </div>
+            <div class="check-item" role="listitem">
+              <div class="check-icon" aria-hidden="true">✓</div>
+              <span><strong>Where to Buy:</strong> KSIC Showroom on Mananthody Road, Cauvery Emporium in Sayyaji Rao
+                Road — never buy from street vendors.</span>
+            </div>
+            <div class="check-item" role="listitem">
+              <div class="check-icon" aria-hidden="true">✓</div>
+              <span><strong>Price Range:</strong> ₹3,000–₹1,50,000+ depending on weight of zari, complexity of design,
+                and purity of silk.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DASARA SECTION -->
+  <section class="section section-dark" id="dasara" aria-label="Dasara festival in Mysore">
+    <div class="container">
+      <div class="text-center fade-in" style="margin-bottom:48px;">
+        <div class="section-label" aria-hidden="true">Nadahabba – State Festival</div>
+        <h2 class="section-title text-gold">Dasara – The Grand<br />Festival of Mysore</h2>
+        <p style="color:rgba(255,255,255,0.65);font-size:1rem;max-width:650px;margin:12px auto 0;line-height:1.8;">For
+          10 magnificent days each October, Mysore transforms into a city of light, colour, and royal pageantry. The
+          Dasara celebration has been held continuously for over 400 years.</p>
+      </div>
+
+      <div class="dasara-grid fade-in">
+        <div>
+          <img src="images/mysore_dasara_elephant.png"
+            alt="Royal elephant decorated with golden howdah during Dasara procession in Mysore"
+            style="width:100%;border-radius:20px;height:420px;object-fit:cover;box-shadow:var(--shadow-royal);"
+            loading="lazy" />
+        </div>
+
+        <div class="dasara-timeline-wrap">
+          <h3>10 Days of Dasara</h3>
+          <div class="timeline" role="list">
+            <div class="timeline-item" role="listitem">
+              <div class="timeline-day">Day 1 – Padyami</div>
+              <div class="timeline-content">
+                <h4>Palace Inauguration</h4>
+                <p>The festival begins with a royal Puja in the Mysore Palace. The Goddess Chamundeshwari's idol is
+                  ceremonially decorated and the palace opens its private durbar hall.</p>
+              </div>
+            </div>
+            <div class="timeline-item" role="listitem">
+              <div class="timeline-day">Days 2–8</div>
+              <div class="timeline-content">
+                <h4>Cultural Extravaganza</h4>
+                <p>Seven days of classical music, dance recitals, Yakshagana, wrestling competitions, kalasam (chariot
+                  procession), and sports events fill Mysore with energy and colour.</p>
+              </div>
+            </div>
+            <div class="timeline-item" role="listitem">
+              <div class="timeline-day">Day 9 – Mahanavami</div>
+              <div class="timeline-content">
+                <h4>Royal Durbar & Elephant Puja</h4>
+                <p>The most spectacular day. The Maharaja holds court in full regalia and blesses decorated elephants.
+                  10,000 people fill the palace courtyard. Private durbar is followed by a military parade.</p>
+              </div>
+            </div>
+            <div class="timeline-item" role="listitem">
+              <div class="timeline-day">Day 10 – Vijayadashami</div>
+              <div class="timeline-content">
+                <h4>The Grand Jamboo Savari Procession</h4>
+                <p>The legendary 7-km golden procession with decorated royal elephants, cavalry, bands, and 100+ floats.
+                  Culminates with torch-lit procession at Bannimantap grounds and massive fireworks over Mysore skyline.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PERFORMING ARTS -->
+  <section class="section section-cream-dark" id="performing-arts" aria-label="Performing arts of Mysore">
+    <div class="container">
+      <div class="text-center fade-in" style="margin-bottom:36px;">
+        <div class="section-label" aria-hidden="true">Live Traditions</div>
+        <h2 class="section-title">Performing Arts of <span class="text-gold">Mysore</span></h2>
+      </div>
+
+      <div class="tab-group fade-in" role="tablist">
+        <div class="tab-buttons">
+          <button class="tab-btn active" data-tab="dance" role="tab" aria-selected="true" id="tab-dance"><i
+              class="fas fa-music ic" style="margin-right:5px;"></i> Classical Dance</button>
+          <button class="tab-btn" data-tab="music" role="tab" aria-selected="false" id="tab-music"><i
+              class="fas fa-guitar ic" style="margin-right:5px;"></i> Music</button>
+          <button class="tab-btn" data-tab="drama" role="tab" aria-selected="false" id="tab-drama"><i
+              class="fas fa-theater-masks ic" style="margin-right:5px;"></i> Theatre &amp; Drama</button>
+          <button class="tab-btn" data-tab="yoga" role="tab" aria-selected="false" id="tab-yoga"><i
+              class="fas fa-spa ic" style="margin-right:5px;"></i> Yoga</button>
+        </div>
+
+        <div class="tab-panel active" data-panel="dance" role="tabpanel" aria-labelledby="tab-dance">
+          <div class="performing-art-grid">
+            <div class="pa-card" role="article">
+              <img src="https://images.unsplash.com/photo-1617196035154-1e7e6e28b0db?w=500&q=75"
+                alt="Bharatanatyam classical dancer in traditional costume" loading="lazy" />
+              <div class="pa-body">
+                <h4 class="pa-name">Bharatanatyam</h4>
+                <p class="pa-desc">The Mysore style (gharana) of Bharatanatyam is known for its pure nritta (rhythmic
+                  dance) combined with nritya (expressive dance). The Karnataka Lalitha Kala Academy in Mysore trains
+                  hundreds of students annually in this ancient form codified in the Natya Shastra.</p>
+              </div>
+            </div>
+            <div class="pa-card" role="article">
+              <img src="https://images.unsplash.com/photo-1545205597-3d9d02c29597?w=500&q=75"
+                alt="Yakshagana performer with elaborate costume and headdress" loading="lazy" />
+              <div class="pa-body">
+                <h4 class="pa-name">Yakshagana</h4>
+                <p class="pa-desc">Karnataka's vibrant traditional theatre form — a heady mix of dance, music, spoken
+                  dialogue, elaborate costume, and improvisation — performed overnight, traditionally in villages under
+                  open skies. Themes are drawn from the Mahabharata, Ramayana, and Puranas. Performances during Dasara
+                  are spectacular.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" data-panel="music" role="tabpanel" aria-labelledby="tab-music">
+          <div class="performing-art-grid">
+            <div class="pa-card" role="article">
+              <img src="images/carnatic_music_veena.png" alt="Carnatic music performance with violin and mridangam"
+                loading="lazy" />
+              <div class="pa-body">
+                <h4 class="pa-name">Carnatic Music</h4>
+                <p class="pa-desc">Mysore is one of the premier seats of Carnatic classical music. The Wadiyar maharajas
+                  didn't merely support music — they participated. Maharaja Jayachamarajendra composed varnams, krithis
+                  and keertanas for classical performance. The Sri Vasudevachar Music College continues this 300-year
+                  tradition.</p>
+              </div>
+            </div>
+            <div class="pa-card" role="article">
+              <img src="https://images.unsplash.com/photo-1574169208507-84376144848b?w=500&q=75"
+                alt="Wind instrument player at a traditional Karnataka festival" loading="lazy" />
+              <div class="pa-body">
+                <h4 class="pa-name">Nagaswaram & Percussion</h4>
+                <p class="pa-desc">The Nagaswaram (double-reed aerophone) and Tavil (barrel drum) ensemble is an
+                  integral part of Mysore temple rituals and processions. Dasara processions feature massive bands of
+                  Nadaswara vidwans whose music has remained unchanged for centuries. The palace employs its own
+                  traditional musicians.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" data-panel="drama" role="tabpanel" aria-labelledby="tab-drama">
+          <div class="performing-art-grid">
+            <div class="pa-card" role="article">
+              <img src="https://images.unsplash.com/photo-1503095396549-807759245b35?w=500&q=75"
+                alt="Traditional Kannada theatre performance with elaborate costumes" loading="lazy" />
+              <div class="pa-body">
+                <h4 class="pa-name">Kannada Theatre (Nataka)</h4>
+                <p class="pa-desc">Mysore has a rich tradition of Kannada-language professional theatre (nagara nataka).
+                  T.P. Kailasam, the legendary playwright, was from Mysore. The Rangayana — a repertory theatre company
+                  run by the Government of Karnataka in Mysore — is one of India's finest professional drama troupes
+                  staging plays year-round.</p>
+              </div>
+            </div>
+            <div class="pa-card" role="article">
+              <img src="https://images.unsplash.com/photo-1617196035272-1d813f7e8c35?w=500&q=75"
+                alt="Dollu Kunitha folk dance performance Karnataka" loading="lazy" />
+              <div class="pa-body">
+                <h4 class="pa-name">Dollu Kunitha (Folk Dance)</h4>
+                <p class="pa-desc">An energetic folk art performed with large tribal drums (dollu) strapped around the
+                  neck. The performers dance vigorously while drumming complex rhythms simultaneously. Primarily
+                  performed by the Kuruba community of Karnataka, Dollu Kunitha is a high-energy spectacle at Dasara and
+                  rural festivals.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" data-panel="yoga" role="tabpanel" aria-labelledby="tab-yoga">
+          <div class="performing-art-grid">
+            <div class="pa-card" role="article">
+              <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?w=500&q=75"
+                alt="Yoga practitioner in Mysore style Ashtanga practice" loading="lazy" />
+              <div class="pa-body">
+                <h4 class="pa-name">Ashtanga Yoga – Mysore Style</h4>
+                <p class="pa-desc">Sri K. Pattabhi Jois founded Ashtanga Vinyasa Yoga in Mysore in 1948 after studying
+                  under T. Krishnamacharya — the "father of modern yoga." The "Mysore Style" method — practising
+                  independently while a teacher circulates giving adjustments — is now the standard globally. The KPJAYI
+                  institute still operates here.</p>
+              </div>
+            </div>
+            <div class="pa-card" role="article">
+              <img src="https://images.unsplash.com/photo-1575052814086-f385e2e2ad1b?w=500&q=75"
+                alt="Students in Iyengar yoga class with props" loading="lazy" />
+              <div class="pa-body">
+                <h4 class="pa-name">Iyengar Yoga</h4>
+                <p class="pa-desc">B.K.S. Iyengar — arguably the world's most influential yoga teacher of the 20th
+                  century — was born near Mysore and trained with T. Krishnamacharya. His precision-based system using
+                  props is now taught in 80+ countries. The Iyengar Yoga tradition co-exists with Ashtanga in Mysore's
+                  thriving yoga community.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CRAFTS SECTION -->
+  <section class="section section-cream" id="crafts" aria-label="Traditional crafts of Mysore">
+    <div class="container">
+      <div class="text-center fade-in" style="margin-bottom:40px;">
+        <div class="section-label" aria-hidden="true">Heritage Crafts</div>
+        <h2 class="section-title">Traditional Crafts &amp;<br /><span cla <div class="craft-card" role="article">
+            <div class="craft-icon"><i class="fas fa-tree ic" style="font-size:2.5rem;"></i></div>
+            <div class="craft-info">
+              <h4>Sandalwood Carving</h4>
+              <p>World-class figurines, jewelry boxes, and architectural pieces hand-carved by master craftsmen taking
+                years to produce each major work.</p>
+              <span class="craft-tag">GI Tag · Karnataka Govt. Protected</span>
+            </div>
+      </div>
+      <div class="craft-card" role="article">
+        <div class="craft-icon"><i class="fas fa-couch ic" style="font-size:2.5rem;"></i></div>
+        <div class="craft-info">
+          <h4>Rosewood Inlay</h4>
+          <p>Intricate furniture and decorative items made from rosewood with geometric inlay work using ivory (now
+            synthetic), brass, and silver wire.</p>
+          <span class="craft-tag">Royal Palace Furniture · UNESCO Nominee</span>
+        </div>
+      </div>
+      <div class="craft-card" role="article">
+        <div class="craft-icon"><i class="fas fa-shapes ic" style="font-size:2.5rem;"></i></div>
+        <div class="craft-info">
+          <h4>Channapatna Toys</h4>
+          <p>Lacquered wooden toys from Channapatna town known as "Toy Town of India" – uses vegetable dyes and
+            hand-turned craft, exported worldwide.</p>
+          <span class="craft-tag">GI Tag · Toy Town of Karnataka</span>
+        </div>
+      </div>
+      <div class="craft-card" role="article">
+        <div class="craft-icon"><i class="fas fa-wind ic" style="font-size:2.5rem;"></i></div>
+        <div class="craft-info">
+          <h4>Mysore Agarbatti (Incense)</h4>
+          <p>Mysore is India's incense capital, producing 80% of the country's agarbatti. Made with sandalwood paste,
+            essential oils, charcoal, and Jigat binder.</p>
+          <span class="craft-tag">India's Incense Capital</span>
+        </div>
+      </div>
+      <div class="craft-card" role="article">
+        <div class="craft-icon"><i class="fas fa-paint-brush ic" style="font-size:2.5rem;"></i></div>
+        <div class="craft-info">
+          <h4>Mysore Painting Workshop</h4>
+          <p>Several workshops in Mysore offer 1–7 day courses to learn the technique of Mysore painting, from gesso
+            preparation to gold leafing. Chitrakala Parishad is the best.</p>
+          <span class="craft-tag">UNESCO Living Heritage Form</span>
+        </div>
+      </div>
+      <div class="craft-card" role="article">
+        <div class="craft-icon"><i class="fas fa-tools ic" style="font-size:2.5rem;"></i></div>
+        <div class="craft-info">
+          <h4>Bronze Casting (Dhokra)</h4>
+          <p>The lost-wax casting method producing bronze figurines of Hindu deities, ritual vessels, and decorative
+            objects — a tradition over 4,000 years old in south India.</p>
+          <p>The lost-wax casting method producing bronze figurines of Hindu deities, ritual vessels, and decorative
+            objects — a tradition over 4,000 years old in south India.</p>
+          <span class="craft-tag">4000 Year Old Craft · Ancient India</span>
+        </div>
+      </div>
+    </div>
+    </div>
+  </section>
+
+  <!-- CULTURAL EVENTS CALENDAR -->
+  <section class="section section-cream-dark" id="events" aria-label="Cultural events calendar Mysore">
+    <div class="container">
+      <div class="text-center fade-in" style="margin-bottom:36px;">
+        <div class="section-label" aria-hidden="true">Annual Calendar</div>
+        <h2 class="section-title">Cultural Events <span class="text-gold">Calendar</span></h2>
+      </div>
+      <div class="events-table-wrap fade-in" style="overflow-x:auto;">
+        <table class="info-table" role="table" aria-label="Annual cultural events in Mysore">
+          <thead>
+            <tr>
+              <th scope="col">Month</th>
+              <th scope="col">Event</th>
+              <th scope="col">Venue</th>
+              <th scope="col">Highlights</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>January</td>
+              <td><strong>Makara Sankranti Festival</strong></td>
+              <td>City-wide</td>
+              <td>Kite flying, sugarcane, sesame sweets, cultural programs</td>
+            </tr>
+            <tr>
+              <td>February</td>
+              <td><strong>Varuna Habba (Flower Show)</strong></td>
+              <td>Mysore Palace Grounds</td>
+              <td>Floral art, horticultural exhibitions, competitions</td>
+            </tr>
+            <tr>
+              <td>March</td>
+              <td><strong>Holi &amp; Ugadi</strong></td>
+              <td>City-wide</td>
+              <td>Kannada New Year, colours, traditional music</td>
+            </tr>
+            <tr>
+              <td>May</td>
+              <td><strong>Mysore Agarbatti Mela</strong></td>
+              <td>Exhibition Grounds</td>
+              <td>Incense brands, aromatherapy workshops, artisan market</td>
+            </tr>
+            <tr>
+              <td>August</td>
+              <td><strong>Mysore Yoga Mela</strong></td>
+              <td>Palace Grounds / City</td>
+              <td>World-class yoga teachers, workshops, demonstrations</td>
+            </tr>
+            <tr>
+              <td>October</td>
+              <td><strong><i class="fas fa-star ic"></i> Dasara – Nadahabba</strong></td>
+              <td>Palace &amp; City-wide</td>
+              <td>Grand Jamboo Savari, cultural programs, elephant pageant</td>
+            </tr>
+            <tr>
+              <td>October/Nov</td>
+              <td><strong>Deepavali Celebration</strong></td>
+              <td>Mysore Palace</td>
+              <td>97,000-bulb palace illumination, fireworks display</td>
+            </tr>
+            <tr>
+              <td>December</td>
+              <td><strong>Mysore Literature Festival</strong></td>
+              <td>Rangayana Theatre</td>
+              <td>Kannada &amp; Indian authors, book releases, discussions</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" style="display:inline-flex;">
+          <div class="logo-emblem">🏰</div>
+          <div class="logo-text">
+            <span class="logo-title">MYSORE</span>
+            <span class="logo-sub">Tourism Guide</span>
+          </div>
+        </a>
+        <p>Your complete guide to the City of Palaces – discover heritage, flavours, art, and adventure in Karnataka's
+          royal heartland.</p>
+        <div class="footer-social" role="list">
+          <div class="social-btn" role="listitem" title="Facebook"><i class="fab fa-facebook-f ic"></i></div>
+          <div class="social-btn" role="listitem" title="Instagram"><i class="fab fa-instagram ic"></i></div>
+          <div class="social-btn" role="listitem" title="YouTube"><i class="fab fa-youtube ic"></i></div>
+          <div class="social-btn" role="listitem" title="Twitter"><i class="fab fa-x-twitter ic"></i></div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="tourist-places.html">Tourist Places</a></li>
+          <li><a href="food.html">Special Food</a></li>
+          <li><a href="art-culture.html">Art & Culture</a></li>
+          <li><a href="trip-plan.html">Trip Planner</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Culture Highlights</h4>
+        <ul>
+          <li><a href="#painting">Mysore Painting</a></li>
+          <li><a href="#silk">Mysore Silk</a></li>
+          <li><a href="#dasara">Dasara Festival</a></li>
+          <li><a href="#crafts">Traditional Crafts</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><span><i class="fas fa-map-marker-alt ic"></i> Mysuru, Karnataka 570001</span></li>
+          <li><span><i class="fas fa-phone ic"></i> +91 821 242 2096</span></li>
+          <li><span><i class="fas fa-envelope ic"></i> info@mysoretourism.in</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Mysore Tourism Guide · All rights reserved</span>
+      <span>developed by Udbhavi, Tarun, suppreeth</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>

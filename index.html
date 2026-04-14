@@ -1,0 +1,1258 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mysore â€“ The Cultural Capital of Karnataka | Discover Incredible Mysuru</title>
+  <meta name="description"
+    content="Explore Mysore, Karnataka's royal city of palaces, silk, sandalwood and Dasara grandeur. Plan your perfect trip to Mysuru with our complete guide." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•
+       HERO â€“ CENTRED CINEMATIC LAYOUT
+       Red & Yellow fire palette
+    â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+
+    :root {
+      --fire-red:    #C0392B;
+      --fire-red2:   #E74C3C;
+      --fire-amber:  #F39C12;
+      --fire-yellow: #F1C40F;
+      --fire-deep:   #7B1A11;
+    }
+
+    /* â”€â”€ Hero shell â”€â”€ */
+    .hero {
+      height: 100vh;
+      min-height: 680px;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* â”€â”€ Background slides â”€â”€ */
+    .hero-slides { position: absolute; inset: 0; }
+
+    .hero-slide {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      opacity: 0;
+      transform: scale(1.08);
+      transition: opacity 1.2s ease, transform 9s ease;
+      will-change: opacity, transform;
+      filter: saturate(1.1) brightness(0.85);
+    }
+
+    .hero-slide.active { opacity: 1; transform: scale(1); }
+
+    .hero-slide:nth-child(1) { background-image: url('https://images.unsplash.com/photo-1659126574791-13313aa424bd?auto=format&fit=crop&w=1800&q=85'); }
+    .hero-slide:nth-child(2) { background-image: url('https://images.unsplash.com/photo-1557062976-899d39720041?q=80&w=1250&auto=format&fit=crop'); }
+    .hero-slide:nth-child(3) { background-image: url('https://res.cloudinary.com/kmadmin/image/upload/v1722971163/kiomoi/1200px-Zoo_entrance_gate_%281%29_4591.webp'); }
+    .hero-slide:nth-child(4) { background-image: url('https://saagarphuket.com/wp-content/uploads/2025/12/Semolina-Halwa-3.webp'); }
+
+    /* â”€â”€ Multi-layer overlay â”€â”€ */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+      /* Dark vignette + bottom fade for card strip */
+      background:
+        radial-gradient(ellipse at 50% 40%, rgba(192,57,43,0.35) 0%, transparent 65%),
+        linear-gradient(to bottom,
+          rgba(0,0,0,0.55) 0%,
+          rgba(123,26,17,0.25) 45%,
+          rgba(0,0,0,0.85) 100%);
+    }
+
+    /* Fire diagonal lines (decorative) */
+    .hero-overlay::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(135deg, rgba(241,196,15,0.08) 0%, transparent 40%),
+        linear-gradient(225deg, rgba(192,57,43,0.12) 0%, transparent 50%);
+      z-index: 1;
+    }
+
+    /* â”€â”€ Glowing circle behind heading â”€â”€ */
+    .hero-glow-ring {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -56%);
+      width: clamp(360px, 55vw, 700px);
+      height: clamp(360px, 55vw, 700px);
+      border-radius: 50%;
+      border: 1px solid rgba(241,196,15,0.12);
+      box-shadow:
+        0 0 80px rgba(192,57,43,0.20),
+        0 0 160px rgba(241,196,15,0.08),
+        inset 0 0 80px rgba(192,57,43,0.10);
+      z-index: 2;
+      pointer-events: none;
+      animation: ringPulse 4s ease-in-out infinite;
+    }
+
+    .hero-glow-ring::after {
+      content: '';
+      position: absolute;
+      inset: 16px;
+      border-radius: 50%;
+      border: 1px solid rgba(241,196,15,0.08);
+    }
+
+    @keyframes ringPulse {
+      0%,100% { box-shadow: 0 0 80px rgba(192,57,43,0.20), 0 0 160px rgba(241,196,15,0.08), inset 0 0 80px rgba(192,57,43,0.10); }
+      50%      { box-shadow: 0 0 120px rgba(192,57,43,0.35), 0 0 220px rgba(241,196,15,0.14), inset 0 0 100px rgba(192,57,43,0.16); }
+    }
+
+    /* â”€â”€ Centre content â”€â”€ */
+    .hero-content {
+      position: relative;
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+      padding: 0 1.5rem;
+      max-width: 900px;
+      width: 100%;
+      /* push up slightly so strip shows below */
+      margin-top: -60px;
+    }
+
+    /* City tag */
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(241,196,15,0.12);
+      border: 1.5px solid rgba(241,196,15,0.45);
+      color: var(--fire-yellow);
+      font-size: 0.73rem;
+      letter-spacing: 5px;
+      text-transform: uppercase;
+      padding: 8px 22px;
+      border-radius: 40px;
+      margin-bottom: 22px;
+      backdrop-filter: blur(14px);
+      animation: fadeInDown 0.9s ease 0.2s both;
+    }
+
+    .hero-tag .dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--fire-yellow);
+      box-shadow: 0 0 8px var(--fire-yellow);
+      animation: dotPulse 1.8s infinite;
+    }
+
+    @keyframes dotPulse {
+      0%,100% { transform: scale(1);   opacity: 1; }
+      50%      { transform: scale(1.7); opacity: 0.5; }
+    }
+
+    @keyframes fadeInDown {
+      from { opacity: 0; transform: translateY(-24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(32px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes popIn {
+      0%   { opacity: 0; transform: scale(0.6) translateY(20px); }
+      70%  { transform: scale(1.04) translateY(-3px); }
+      100% { opacity: 1; transform: scale(1) translateY(0); }
+    }
+
+    /* Huge heading */
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(3.2rem, 8.5vw, 7rem);
+      font-weight: 700;
+      color: #FFFFFF;
+      line-height: 1.0;
+      margin-bottom: 6px;
+      animation: fadeInUp 0.9s ease 0.4s both;
+      text-shadow: 0 6px 30px rgba(0,0,0,0.6);
+      letter-spacing: -1px;
+    }
+
+    /* Fire gradient on keyword */
+    .hero h1 em {
+      font-style: normal;
+      display: block;
+      background: linear-gradient(90deg, var(--fire-yellow) 0%, var(--fire-amber) 45%, var(--fire-red2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1.05;
+    }
+
+    /* Thin rule under heading */
+    .hero-rule {
+      width: 80px;
+      height: 3px;
+      border-radius: 2px;
+      background: linear-gradient(90deg, transparent, var(--fire-yellow), var(--fire-red2), transparent);
+      margin: 18px auto 22px;
+      animation: fadeInUp 0.9s ease 0.55s both;
+    }
+
+    /* Description */
+    .hero-desc {
+      font-size: 1.05rem;
+      color: rgba(255,255,255,0.78);
+      max-width: 580px;
+      line-height: 1.9;
+      margin-bottom: 32px;
+      animation: fadeInUp 0.9s ease 0.65s both;
+    }
+
+    /* CTA row */
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+      animation: fadeInUp 0.9s ease 0.78s both;
+    }
+
+    .btn-fire {
+      background: linear-gradient(135deg, var(--fire-yellow) 0%, var(--fire-amber) 50%, var(--fire-red2) 100%);
+      color: #1A0500;
+      font-weight: 700;
+      padding: 14px 32px;
+      border-radius: 40px;
+      border: none;
+      font-size: 0.92rem;
+      letter-spacing: 0.5px;
+      box-shadow: 0 6px 28px rgba(231,76,60,0.5), 0 2px 8px rgba(241,196,15,0.3);
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .btn-fire:hover {
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 14px 42px rgba(231,76,60,0.65), 0 4px 14px rgba(241,196,15,0.4);
+    }
+
+    .btn-ghost-fire {
+      background: transparent;
+      color: var(--fire-yellow);
+      border: 2px solid rgba(241,196,15,0.55);
+      padding: 12px 28px;
+      border-radius: 40px;
+      font-size: 0.92rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+      backdrop-filter: blur(8px);
+    }
+
+    .btn-ghost-fire:hover {
+      background: rgba(241,196,15,0.15);
+      border-color: var(--fire-yellow);
+      transform: translateY(-3px);
+    }
+
+    /* â”€â”€ Stat row (centre, below buttons) â”€â”€ */
+    .hero-stats {
+      display: flex;
+      gap: 0;
+      margin-top: 40px;
+      animation: fadeInUp 0.9s ease 0.9s both;
+      border: 1px solid rgba(241,196,15,0.2);
+      border-radius: 16px;
+      overflow: hidden;
+      backdrop-filter: blur(14px);
+      background: rgba(0,0,0,0.25);
+    }
+
+    .hero-stat {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 16px 28px;
+      border-right: 1px solid rgba(241,196,15,0.2);
+      min-width: 110px;
+    }
+
+    .hero-stat:last-child { border-right: none; }
+
+    .hero-stat .num {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      background: linear-gradient(90deg, var(--fire-yellow), var(--fire-amber));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+
+    .hero-stat .lbl {
+      font-size: 0.65rem;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      margin-top: 5px;
+    }
+
+    /* â”€â”€ Bottom attraction strip (horizontal 4-cards) â”€â”€ */
+    .hero-strip {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 6;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      height: 180px;
+      border-top: 2px solid rgba(241,196,15,0.25);
+    }
+
+    .strip-card {
+      position: relative;
+      overflow: hidden;
+      cursor: pointer;
+      text-decoration: none;
+      transition: flex 0.5s ease;
+    }
+
+    .strip-card + .strip-card {
+      border-left: 1px solid rgba(241,196,15,0.15);
+    }
+
+    .strip-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease, filter 0.4s ease;
+      filter: brightness(0.65) saturate(0.9);
+    }
+
+    .strip-card:hover img {
+      transform: scale(1.1);
+      filter: brightness(0.8) saturate(1.2);
+    }
+
+    .strip-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to top,
+        rgba(123,26,17,0.92) 0%,
+        rgba(192,57,43,0.3)  50%,
+        transparent          100%);
+      transition: background 0.4s;
+    }
+
+    .strip-card:hover .strip-overlay {
+      background: linear-gradient(to top,
+        rgba(123,26,17,0.97) 0%,
+        rgba(192,57,43,0.5)  60%,
+        transparent          100%);
+    }
+
+    .strip-info {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      padding: 14px 16px;
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+    }
+
+    .strip-label {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .strip-cat {
+      font-size: 0.6rem;
+      letter-spacing: 2.5px;
+      color: var(--fire-yellow);
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 3px;
+    }
+
+    .strip-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      color: #fff;
+      font-weight: 600;
+    }
+
+    .strip-arrow {
+      width: 30px; height: 30px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(241,196,15,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--fire-yellow);
+      font-size: 0.85rem;
+      flex-shrink: 0;
+      transition: all 0.3s ease;
+    }
+
+    .strip-card:hover .strip-arrow {
+      background: var(--fire-yellow);
+      color: #1A0500;
+      border-color: var(--fire-yellow);
+      transform: translateX(2px);
+    }
+
+    /* Number badge on first strip card */
+    .strip-num {
+      position: absolute;
+      top: 10px; left: 10px;
+      font-family: 'Cinzel', serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: rgba(255,255,255,0.10);
+      line-height: 1;
+      pointer-events: none;
+    }
+
+    /* â”€â”€ Slide dots â”€â”€ */
+    .hero-dots {
+      position: absolute;
+      bottom: 205px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 7;
+      display: flex;
+      gap: 8px;
+    }
+
+    .hero-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.3);
+      border: none;
+      cursor: pointer;
+      transition: all 0.35s;
+      padding: 0;
+    }
+
+    .hero-dot.active {
+      background: var(--fire-yellow);
+      width: 28px;
+      border-radius: 4px;
+      box-shadow: 0 0 12px rgba(241,196,15,0.8);
+    }
+
+    /* â”€â”€ Slide counter â”€â”€ */
+    .hero-counter {
+      position: absolute;
+      bottom: 210px;
+      right: 2rem;
+      z-index: 7;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.78rem;
+      letter-spacing: 2px;
+    }
+
+    .hero-counter span {
+      color: var(--fire-yellow);
+      font-weight: 700;
+      font-size: 1.1rem;
+    }
+
+    /* â”€â”€ Scroll hint â”€â”€ */
+    .hero-scroll {
+      position: absolute;
+      bottom: 210px;
+      left: 2rem;
+      z-index: 7;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 6px;
+      color: rgba(255,255,255,0.4);
+      font-size: 0.63rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+    }
+
+    .mouse-icon {
+      width: 22px; height: 36px;
+      border: 2px solid rgba(241,196,15,0.4);
+      border-radius: 12px;
+      display: flex;
+      justify-content: center;
+      padding-top: 5px;
+    }
+
+    .mouse-icon::before {
+      content: '';
+      width: 2px; height: 7px;
+      background: var(--fire-yellow);
+      border-radius: 2px;
+      animation: scrollDot 1.6s infinite;
+    }
+
+    @keyframes scrollDot {
+      0%   { opacity: 1; transform: translateY(0); }
+      100% { opacity: 0; transform: translateY(10px); }
+    }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â• QUICK INFO â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    .quickinfo {
+      background: linear-gradient(90deg,
+        var(--fire-deep) 0%,
+        rgba(192,57,43,0.95) 50%,
+        var(--fire-deep) 100%);
+      border-top: 1px solid rgba(241,196,15,0.25);
+      border-bottom: 1px solid rgba(241,196,15,0.25);
+      padding: 22px 2rem;
+    }
+
+    .quickinfo-inner {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .quickinfo-item { display: flex; align-items: center; gap: 10px; color: var(--white); }
+    .qi-icon { font-size: 1.4rem; }
+    .qi-label { font-size: 0.68rem; color: rgba(255,255,255,0.5); letter-spacing: 2px; text-transform: uppercase; }
+    .qi-value { font-size: 0.9rem; font-weight: 600; color: var(--fire-yellow); }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â• ABOUT â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    .about-text h2 span { color: var(--fire-amber); }
+    .about-img-wrap { position: relative; }
+    .about-img-main { width: 100%; height: 480px; object-fit: cover; border-radius: 20px; box-shadow: var(--shadow-royal); }
+    .about-img-accent { position: absolute; right: -24px; bottom: -24px; width: 180px; height: 180px; object-fit: cover; border-radius: 14px; border: 4px solid var(--surface); box-shadow: var(--shadow-gold); }
+    .about-badge { position: absolute; top: 24px; left: -16px; background: linear-gradient(135deg, var(--fire-amber), var(--fire-red)); color: var(--white); padding: 14px 18px; border-radius: 14px; text-align: center; box-shadow: 0 6px 24px rgba(231,76,60,0.45); }
+    .about-badge .num { font-family: 'Playfair Display', serif; font-size: 2rem; font-weight: 700; display: block; line-height: 1; }
+    .about-badge .txt { font-size: 0.7rem; letter-spacing: 1px; opacity: 0.9; }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â• HIGHLIGHTS â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    .highlight-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 0; border-radius: 20px; overflow: hidden; box-shadow: var(--shadow-royal); }
+    .highlight-card { position: relative; height: 400px; overflow: hidden; cursor: pointer; }
+    .highlight-card img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease; }
+    .highlight-card:hover img { transform: scale(1.08); }
+    .highlight-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(123,26,17,0.92) 0%, rgba(192,57,43,0.1) 55%, transparent 100%); transition: var(--transition); }
+    .highlight-card:hover .highlight-overlay { background: linear-gradient(to top, rgba(123,26,17,0.97) 0%, rgba(192,57,43,0.45) 60%, transparent 100%); }
+    .highlight-info { position: absolute; bottom: 0; left: 0; right: 0; padding: 22px; color: var(--white); transform: translateY(18px); transition: var(--transition); }
+    .highlight-card:hover .highlight-info { transform: translateY(0); }
+    .highlight-info .category { font-size: 0.7rem; letter-spacing: 3px; color: var(--fire-yellow); text-transform: uppercase; margin-bottom: 5px; }
+    .highlight-info h3 { font-family: 'Playfair Display', serif; font-size: 1.25rem; margin-bottom: 6px; }
+    .highlight-info p { font-size: 0.83rem; opacity: 0.8; max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+    .highlight-card:hover .highlight-info p { max-height: 80px; }
+    .highlight-num { position: absolute; top: 14px; right: 14px; font-family: 'Cinzel', serif; font-size: 2.2rem; color: rgba(255,255,255,0.12); font-weight: 700; line-height: 1; }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â• WHY MYSORE â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    .why-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 20px; }
+    .why-card { padding: 28px 22px; border-radius: 16px; background: rgba(255,255,255,0.04); border: 1px solid rgba(241,196,15,0.18); text-align: center; transition: var(--transition); }
+    .why-card:hover { background: rgba(231,76,60,0.12); border-color: rgba(241,196,15,0.45); transform: translateY(-6px); }
+    .why-icon { font-size: 2.2rem; margin-bottom: 14px; display: block; }
+    .why-card h3 { font-family: 'Playfair Display', serif; font-size: 1rem; color: var(--text-dark); margin-bottom: 8px; }
+    .why-card p { font-size: 0.82rem; color: var(--text-mid); line-height: 1.7; }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â• GALLERY STRIP â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    .gallery-strip { display: flex; gap: 6px; height: 300px; border-radius: 18px; overflow: hidden; margin-top: 44px; }
+    .gallery-strip-item { flex: 1; overflow: hidden; transition: flex 0.6s cubic-bezier(0.4,0,0.2,1); cursor: pointer; position: relative; }
+    .gallery-strip-item:hover { flex: 3.5; }
+    .gallery-strip-item img { width: 100%; height: 100%; object-fit: cover; transition: var(--transition); }
+    .gallery-strip-item .img-label { position: absolute; bottom: 0; left: 0; right: 0; padding: 22px 14px 14px; background: linear-gradient(to top, rgba(123,26,17,0.9), transparent); color: var(--white); opacity: 0; transition: opacity 0.4s; white-space: nowrap; }
+    .gallery-strip-item:hover .img-label { opacity: 1; }
+    .img-label h4 { font-family: 'Playfair Display', serif; font-size: 0.95rem; }
+    .img-label p  { font-size: 0.72rem; opacity: 0.75; }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â• FESTIVAL CARDS â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    .festival-card { background: linear-gradient(135deg, var(--surface) 0%, var(--surface-mid) 100%); border: 1px solid rgba(241,196,15,0.2); border-radius: 20px; overflow: hidden; transition: var(--transition); }
+    .festival-card-img { width: 100%; height: 210px; object-fit: cover; }
+    .festival-card-body { padding: 24px; color: var(--text-dark); }
+    .festival-card:hover { border-color: rgba(241,196,15,0.5); transform: translateY(-6px); box-shadow: 0 20px 50px rgba(0,0,0,0.4); }
+    .festival-month { font-size: 0.72rem; letter-spacing: 3px; color: var(--fire-amber); text-transform: uppercase; margin-bottom: 10px; }
+    .festival-card h3 { font-family: 'Playfair Display', serif; font-size: 1.2rem; margin-bottom: 10px; color: var(--text-dark); }
+    .festival-card p { font-size: 0.84rem; color: var(--text-mid); line-height: 1.7; }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â• NEWSLETTER â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    .newsletter-form { display: flex; gap: 12px; margin-top: 24px; max-width: 500px; flex-wrap: wrap; }
+    .newsletter-input { flex: 1; min-width: 180px; padding: 13px 18px; border-radius: 30px; border: 1px solid rgba(241,196,15,0.3); background: rgba(255,255,255,0.06); color: var(--white); font-family: 'Inter', sans-serif; font-size: 0.88rem; outline: none; transition: var(--transition); }
+    .newsletter-input::placeholder { color: rgba(255,255,255,0.4); }
+    .newsletter-input:focus { border-color: var(--fire-yellow); background: rgba(255,255,255,0.1); }
+
+    /* â•â•â•â•â•â•â•â•â•â•â•â•â•â• RESPONSIVE â•â•â•â•â•â•â•â•â•â•â•â•â•â• */
+    @media (max-width: 900px) {
+      .hero-strip { height: 140px; }
+      .strip-name { font-size: 0.82rem; }
+      .hero-dots  { bottom: 165px; }
+      .hero-counter { bottom: 168px; }
+      .hero-scroll  { bottom: 168px; }
+      .hero-content { margin-top: -40px; }
+    }
+
+    @media (max-width: 768px) {
+      .hero { min-height: 100svh; }
+      .hero h1 { font-size: clamp(2.5rem, 9vw, 4.5rem); letter-spacing: 0; }
+      .hero-strip { grid-template-columns: repeat(2, 1fr); height: 200px; }
+      .why-grid { grid-template-columns: 1fr 1fr; }
+      .highlight-grid  { grid-template-columns: 1fr; }
+      .highlight-card  { height: 260px; }
+      .gallery-strip   { height: 180px; }
+      .about-img-accent { display: none; }
+      .about-img-main  { height: 300px; }
+      .about-badge { left: -8px; padding: 10px 14px; }
+      .hero-dots { bottom: 220px; }
+      .hero-counter { bottom: 225px; }
+      .hero-scroll  { bottom: 225px; }
+    }
+
+    @media (max-width: 500px) {
+      .hero-strip { display: none; }
+      .hero-dots  { bottom: 30px; }
+      .hero-counter { bottom: 34px; }
+      .hero-scroll  { bottom: 34px; }
+      .hero-content { margin-top: 0; }
+      .hero-stats { flex-direction: column; gap: 0; width: 100%; }
+      .hero-stat { border-right: none; border-bottom: 1px solid rgba(241,196,15,0.2); }
+      .hero-stat:last-child { border-bottom: none; }
+      .why-grid { grid-template-columns: 1fr; }
+      .gallery-strip-item:nth-child(n+4) { display: none; }
+      .quickinfo-inner { gap: 14px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- â•â•â•â•â•â•â• NAVBAR â•â•â•â•â•â•â• -->
+  <nav class="navbar transparent" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo" aria-label="Mysore Tourism Home">
+        <div class="logo-emblem" aria-hidden="true">ðŸ°</div>
+        <div class="logo-text">
+          <span class="logo-title">MYSORE</span>
+          <span class="logo-sub">Tourism Guide</span>
+        </div>
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html" class="nav-link active" id="nav-home">Home</a></li>
+        <li><a href="tourist-places.html" class="nav-link" id="nav-tourist">Tourist Places</a></li>
+        <li><a href="food.html" class="nav-link" id="nav-food">Special Food</a></li>
+        <li><a href="art-culture.html" class="nav-link" id="nav-art">Art &amp; Culture</a></li>
+        <li><a href="trip-plan.html" class="nav-cta btn" id="nav-trip">Plan Your Trip</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+
+  <div class="mobile-menu" id="mobileMenu" role="navigation" aria-label="Mobile navigation">
+    <a href="index.html" class="nav-link"><i class="fas fa-home ic"></i> Home</a>
+    <a href="tourist-places.html" class="nav-link"><i class="fas fa-landmark ic"></i> Tourist Places</a>
+    <a href="food.html" class="nav-link"><i class="fas fa-utensils ic"></i> Special Food</a>
+    <a href="art-culture.html" class="nav-link"><i class="fas fa-paint-brush ic"></i> Art &amp; Culture</a>
+    <a href="trip-plan.html" class="nav-link nav-cta" style="margin-top:8px;"><i class="fas fa-map ic"></i> Plan Your
+      Trip</a>
+  </div>
+
+  <!-- â•â•â•â•â•â•â• HERO â•â•â•â•â•â•â• -->
+  <section class="hero" id="hero" aria-label="Mysore hero banner">
+
+    <!-- Background slides -->
+    <div class="hero-slides" id="heroSlides" aria-hidden="true">
+      <div class="hero-slide active"></div>
+      <div class="hero-slide"></div>
+      <div class="hero-slide"></div>
+      <div class="hero-slide"></div>
+    </div>
+    <div class="hero-overlay"></div>
+    <div class="hero-glow-ring" aria-hidden="true"></div>
+
+    <!-- â”€â”€ Centre content â”€â”€ -->
+    <div class="hero-content">
+      <div class="hero-tag"><span class="dot"></span>Karnataka's Crown Jewel</div>
+
+      <h1>Discover<em>Royal Mysore</em></h1>
+      <div class="hero-rule" aria-hidden="true"></div>
+
+      <p class="hero-desc">
+        Step into a city of golden palaces, sacred temples, fragrant sandalwood,
+        and one of India's grandest royal traditions.
+        Welcome to Mysuru â€” where history breathes in every street.
+      </p>
+
+      <div class="hero-actions">
+        <a href="tourist-places.html" class="btn-fire" id="explore-btn">
+          <span>Explore Places</span><span>â†’</span>
+        </a>
+        <a href="trip-plan.html" class="btn-ghost-fire" id="plan-btn">Plan My Trip</a>
+      </div>
+
+      <!-- Stat pills -->
+      <div class="hero-stats" aria-label="Quick facts about Mysore">
+        <div class="hero-stat"><span class="num">97K</span><span class="lbl">Light Bulbs</span></div>
+        <div class="hero-stat"><span class="num">600+</span><span class="lbl">Years of History</span></div>
+        <div class="hero-stat"><span class="num">3M+</span><span class="lbl">Annual Visitors</span></div>
+        <div class="hero-stat"><span class="num">#2</span><span class="lbl">Visited Monument</span></div>
+      </div>
+    </div>
+
+    <!-- â”€â”€ Bottom Attraction Strip â”€â”€ -->
+    <div class="hero-strip" aria-label="Mysore top attractions">
+
+      <!-- Mysore Palace -->
+      <a href="tourist-places.html#palace" class="strip-card" aria-label="Mysore Palace">
+        <div class="strip-num">01</div>
+        <img src="https://images.unsplash.com/photo-1659126574791-13313aa424bd?auto=format&fit=crop&w=600&q=80"
+          alt="Mysore Palace illuminated" loading="eager" />
+        <div class="strip-overlay"></div>
+        <div class="strip-info">
+          <div class="strip-label">
+            <span class="strip-cat">Palace</span>
+            <span class="strip-name">Mysore Palace</span>
+          </div>
+          <div class="strip-arrow">â†’</div>
+        </div>
+      </a>
+
+      <!-- Chamundi Hills -->
+      <a href="tourist-places.html#chamundi" class="strip-card" aria-label="Chamundi Hills">
+        <div class="strip-num">02</div>
+        <img src="https://images.unsplash.com/photo-1557062976-899d39720041?q=80&w=600&auto=format&fit=crop"
+          alt="Chamundeshwari Temple" loading="eager" />
+        <div class="strip-overlay"></div>
+        <div class="strip-info">
+          <div class="strip-label">
+            <span class="strip-cat">Sacred Hill</span>
+            <span class="strip-name">Chamundi Hills</span>
+          </div>
+          <div class="strip-arrow">â†’</div>
+        </div>
+      </a>
+
+      <!-- Mysore Zoo -->
+      <a href="tourist-places.html#zoo" class="strip-card" aria-label="Mysuru Zoo">
+        <div class="strip-num">03</div>
+        <img src="https://res.cloudinary.com/kmadmin/image/upload/v1722971163/kiomoi/1200px-Zoo_entrance_gate_%281%29_4591.webp"
+          alt="Mysore Zoo entrance" loading="eager" />
+        <div class="strip-overlay"></div>
+        <div class="strip-info">
+          <div class="strip-label">
+            <span class="strip-cat">Wildlife</span>
+            <span class="strip-name">Mysuru Zoo</span>
+          </div>
+          <div class="strip-arrow">â†’</div>
+        </div>
+      </a>
+
+      <!-- Brindavan Gardens -->
+      <a href="tourist-places.html#brindavan" class="strip-card" aria-label="Brindavan Gardens">
+        <div class="strip-num">04</div>
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS4i8AIDYzHP4dVaYTw0-fdqCW-aajGQ32QOA&s"
+          alt="Brindavan Gardens" loading="eager" />
+        <div class="strip-overlay"></div>
+        <div class="strip-info">
+          <div class="strip-label">
+            <span class="strip-cat">Garden</span>
+            <span class="strip-name">Brindavan Gardens</span>
+          </div>
+          <div class="strip-arrow">â†’</div>
+        </div>
+      </a>
+
+    </div><!-- /hero-strip -->
+
+    <!-- Slide dots -->
+    <div class="hero-dots" role="tablist" aria-label="Slide navigation">
+      <button class="hero-dot active" data-slide="0" aria-label="Slide 1"></button>
+      <button class="hero-dot" data-slide="1" aria-label="Slide 2"></button>
+      <button class="hero-dot" data-slide="2" aria-label="Slide 3"></button>
+      <button class="hero-dot" data-slide="3" aria-label="Slide 4"></button>
+    </div>
+
+    <div class="hero-counter" aria-hidden="true">
+      <span id="slideNum">01</span> / 04
+    </div>
+
+    <div class="hero-scroll" aria-hidden="true">
+      <div class="mouse-icon"></div>
+      <span>Scroll</span>
+    </div>
+
+  </section>
+
+  <!-- â•â•â•â•â•â•â• QUICK INFO â•â•â•â•â•â•â• -->
+  <div class="quickinfo" role="complementary" aria-label="Quick facts about Mysore">
+    <div class="quickinfo-inner">
+      <div class="quickinfo-item">
+        <span class="qi-icon" aria-hidden="true"><i class="fas fa-map-marker-alt ic"></i></span>
+        <div>
+          <div class="qi-label">Location</div>
+          <div class="qi-value">Karnataka, South India</div>
+        </div>
+      </div>
+      <div class="quickinfo-item">
+        <span class="qi-icon" aria-hidden="true"><i class="fas fa-thermometer-half ic"></i></span>
+        <div>
+          <div class="qi-label">Best Season</div>
+          <div class="qi-value">Oct â€“ Mar (22â€“30Â°C)</div>
+        </div>
+      </div>
+      <div class="quickinfo-item">
+        <span class="qi-icon" aria-hidden="true"><i class="fas fa-plane ic"></i></span>
+        <div>
+          <div class="qi-label">Nearest Airport</div>
+          <div class="qi-value">Mysuru or Bengaluru (170 km)</div>
+        </div>
+      </div>
+      <div class="quickinfo-item">
+        <span class="qi-icon" aria-hidden="true"><i class="fas fa-globe ic"></i></span>
+        <div>
+          <div class="qi-label">Language</div>
+          <div class="qi-value">Kannada Â· English Â· Hindi</div>
+        </div>
+      </div>
+      <div class="quickinfo-item">
+        <span class="qi-icon" aria-hidden="true"><i class="fas fa-rupee-sign ic"></i></span>
+        <div>
+          <div class="qi-label">Currency</div>
+          <div class="qi-value">Indian Rupee (â‚¹)</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- â•â•â•â•â•â•â• ABOUT â•â•â•â•â•â•â• -->
+  <section class="section section-cream" id="about" aria-label="About Mysore">
+    <div class="container">
+      <div class="grid-2">
+        <div class="about-text fade-in" style="padding-right:20px;">
+          <div class="section-label" aria-hidden="true">About Mysuru</div>
+          <h2 class="section-title">The <span>City of Palaces</span><br />&amp; Royal Grandeur</h2>
+          <p class="section-subtitle">
+            Mysore (officially Mysuru) is a magnificent city in the southern Karnataka plateau, celebrated for its
+            majestic palaces, silk weaving, aromatic sandalwood, yoga culture, and the spectacular Dasara festival â€”
+            hailed as <em>Nadahabba</em>, the state festival of Karnataka.
+          </p>
+          <p style="margin-top:16px;color:var(--text-mid);font-size:0.93rem;line-height:1.85;">
+            The city flourished under the Wadiyar dynasty for over 600 years. Today it combines royal heritage with
+            modern energy â€” featuring premier research institutes, a world-class zoo, lush Chamundi Hills, and vibrant
+            local markets full of incense and colour.
+          </p>
+          <div class="stats-row" role="list">
+            <div class="stat-item" role="listitem">
+              <span class="stat-number" data-counter="600">0</span>
+              <span class="stat-label">Years of History</span>
+            </div>
+            <div class="stat-item" role="listitem">
+              <span class="stat-number" data-counter="97">0</span>
+              <span class="stat-label">Heritage Sites</span>
+            </div>
+            <div class="stat-item" role="listitem">
+              <span class="stat-number" data-counter="3">0</span>
+              <span class="stat-label">UNESCO Listings</span>
+            </div>
+          </div>
+          <div style="margin-top:32px;">
+            <a href="tourist-places.html" class="btn btn-gold" id="discover-btn">Discover All Places â†’</a>
+          </div>
+        </div>
+
+        <div class="about-img-wrap fade-in fade-in-delay-2">
+          <img class="about-img-main"
+            src="https://plus.unsplash.com/premium_photo-1697730407028-1c602ffb2e81?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Mysore Palace â€“ grand Indo-Saracenic facade by day" loading="lazy" />
+          <img class="about-img-accent" src="images/mysore_palace_interior.png"
+            alt="Palace interior detail â€“ ornate Durbar Hall, Mysore" loading="lazy" />
+          <div class="about-badge" aria-label="City of Palaces â€“ India">
+            <span class="num">ðŸ†</span>
+            <span class="txt">City of Palaces</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- â•â•â•â•â•â•â• HIGHLIGHTS â•â•â•â•â•â•â• -->
+  <section class="section section-cream-dark" id="highlights" aria-label="Iconic highlights">
+    <div class="container">
+      <div class="text-center fade-in" style="margin-bottom:44px;">
+        <div class="section-label" aria-hidden="true">Must See</div>
+        <h2 class="section-title">Iconic Highlights<br />of <span class="text-gold">Mysore</span></h2>
+      </div>
+      <div class="highlight-grid fade-in fade-in-delay-1">
+        <!-- Mysore Palace night -->
+        <div class="highlight-card" role="article">
+          <img src="https://images.unsplash.com/photo-1659126574791-13313aa424bd?auto=format&fit=crop&w=700&q=80"
+            alt="Mysore Palace lit at night with 97,000 bulbs â€“ the defining image of Mysore" loading="lazy" />
+          <div class="highlight-overlay"></div>
+          <div class="highlight-num" aria-hidden="true">01</div>
+          <div class="highlight-info">
+            <div class="category">Royal Palace</div>
+            <h3>Mysore Palace</h3>
+            <p>The third most visited monument in India. Every Sunday the palace blazes with 97,000 light bulbs â€” a
+              sight that defines Mysore.</p>
+          </div>
+        </div>
+
+        <!-- Mysore Palace facade / cityscape -->
+        <div class="highlight-card" role="article">
+          <img
+            src="https://images.unsplash.com/photo-1557062976-899d39720041?q=80&w=1250&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
+            alt="Mysore Palace and city skyline view from Chamundi Hills" loading="lazy" />
+          <div class="highlight-overlay"></div>
+          <div class="highlight-num" aria-hidden="true">02</div>
+          <div class="highlight-info">
+            <div class="category">Sacred Hill Â· Temple</div>
+            <h3>Chamundi Hills</h3>
+            <p>A sacred hill 1,065 m above sea level with panoramic views over the entire city and the 12th-century
+              temple at its crown.</p>
+          </div>
+        </div>
+
+        <!-- Hoysala / Karnataka heritage -->
+        <div class="highlight-card" role="article">
+          <img src="https://www.tourmyindia.com/states/karnataka/image/hoysala-temples-tour1.webp"
+            alt="Somnathpur Hoysala temple intricate stone carvings near Mysore" loading="lazy" />
+          <div class="highlight-overlay"></div>
+          <div class="highlight-num" aria-hidden="true">03</div>
+          <div class="highlight-info">
+            <div class="category">UNESCO Heritage</div>
+            <h3>Hoysala Temples</h3>
+            <p>The perfectly preserved Keshava Temple at Somnathpur â€” 38 km from Mysore â€” is the finest Hoysala
+              architectural masterpiece.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- â•â•â•â•â•â•â• WHY MYSORE â•â•â•â•â•â•â• -->
+  <section class="section section-dark" id="why" aria-label="Why visit Mysore">
+    <div class="container">
+      <div class="text-center fade-in" style="margin-bottom:44px;">
+        <div class="section-label" aria-hidden="true">Why Visit</div>
+        <h2 class="section-title text-gold">Why Mysore Captivates<br />Every Traveller</h2>
+      </div>
+      <div class="why-grid">
+        <div class="why-card fade-in fade-in-delay-1" role="article"><span class="why-icon"><i
+              class="fas fa-monument ic"></i></span>
+          <h3>Royal Heritage</h3>
+          <p>600+ years of Wadiyar dynasty rule left breathtaking palaces, forts, and ceremonial grandeur at every
+            corner.</p>
+        </div>
+        <div class="why-card fade-in fade-in-delay-2" role="article"><span class="why-icon"><i
+              class="fas fa-scroll ic"></i></span>
+          <h3>Mysore Silk</h3>
+          <p>The GI-tagged Mysore Crepe Silk â€” woven from pure mulberry silk with real gold-silver zari â€” the finest in
+            India.</p>
+        </div>
+        <div class="why-card fade-in fade-in-delay-3" role="article"><span class="why-icon"><i
+              class="fas fa-spa ic"></i></span>
+          <h3>Yoga Capital</h3>
+          <p>Birthplace of Ashtanga Yoga. Yogis from 80+ countries travel here to study at the world-famous KPJAYI
+            institute.</p>
+        </div>
+        <div class="why-card fade-in fade-in-delay-4" role="article"><span class="why-icon"><i
+              class="fas fa-leaf ic"></i></span>
+          <h3>Brindavan Gardens</h3>
+          <p>60-hectare terraced gardens below KRS Dam with musical fountain show â€” a romantic marvel after dusk.</p>
+        </div>
+        <div class="why-card fade-in fade-in-delay-1" role="article"><span class="why-icon"><i
+              class="fas fa-fire ic"></i></span>
+          <h3>Dasara Festival</h3>
+          <p>10 days of elephants, processions, fireworks, and cultural kaleidoscope every October. Karnataka's grandest
+            celebration.</p>
+        </div>
+        <div class="why-card fade-in fade-in-delay-2" role="article"><span class="why-icon"><i
+              class="fas fa-utensils ic"></i></span>
+          <h3>Royal Cuisine</h3>
+          <p>Home to Mysore Pak, Masala Dosa, Bisi Bele Bath â€” recipes with centuries of royal culinary tradition.</p>
+        </div>
+        <div class="why-card fade-in fade-in-delay-3" role="article"><span class="why-icon"><i
+              class="fas fa-paw ic"></i></span>
+          <h3>Mysuru Zoo</h3>
+          <p>Established 1892 â€” one of Asia's finest. Home to white tigers, gorillas, hippos and 168+ species.</p>
+        </div>
+        <div class="why-card fade-in fade-in-delay-4" role="article"><span class="why-icon"><i
+              class="fas fa-palette ic"></i></span>
+          <h3>Art &amp; Crafts</h3>
+          <p>Mysore Painting, rosewood inlay, sandalwood carving â€” living art traditions since the 14th century.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- â•â•â•â•â•â•â• GALLERY STRIP â•â•â•â•â•â•â• -->
+  <section class="section section-cream-dark" id="gallery" aria-label="Mysore photo gallery">
+    <div class="container">
+      <div class="text-center fade-in">
+        <div class="section-label" aria-hidden="true">Gallery</div>
+        <h2 class="section-title">Mysore in <span class="text-gold">Pictures</span></h2>
+        <p class="section-subtitle" style="margin:6px auto 0;">Hover any panel to expand it.</p>
+      </div>
+      <div class="gallery-strip fade-in" role="list">
+        <!-- Palace Night -->
+        <div class="gallery-strip-item" role="listitem" tabindex="0">
+          <img src="https://images.unsplash.com/photo-1659126574791-13313aa424bd?auto=format&fit=crop&w=600&q=80"
+            alt="Mysore Palace illuminated at night" loading="lazy" />
+          <div class="img-label">
+            <h4>Palace Illumination</h4>
+            <p>Every Sunday 7 â€“ 7:30 PM</p>
+          </div>
+        </div>
+        <!-- Mysore Cityscape -->
+        <div class="gallery-strip-item" role="listitem" tabindex="0">
+          <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRjxdRmLD4VOsjoYXiBAvhGNBAXD8fo0uOWQg&s"
+            alt="Mysore city view from Chamundi Hills" loading="lazy" />
+          <div class="img-label">
+            <h4>Chamundi View</h4>
+            <p>Panoramic city skyline</p>
+          </div>
+        </div>
+        <!-- Palace Interior -->
+        <div class="gallery-strip-item" role="listitem" tabindex="0">
+          <img src="images/mysore_palace_interior.png" alt="Mysore Palace interior ornate decoration" loading="lazy" />
+          <div class="img-label">
+            <h4>Palace Interior</h4>
+            <p>Golden durbar halls</p>
+          </div>
+        </div>
+        <!-- Hoysala Temple -->
+        <div class="gallery-strip-item" role="listitem" tabindex="0">
+          <img src="https://www.tourmyindia.com/states/karnataka/image/hoysala-temples-tour1.webp"
+            alt="Somnathpur Hoysala temple near Mysore" loading="lazy" />
+          <div class="img-label">
+            <h4>Hoysala Heritage</h4>
+            <p>Somnathpur â€“ 38 km away</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- â•â•â•â•â•â•â• FESTIVALS â•â•â•â•â•â•â• -->
+  <section class="section section-cream" id="festivals" aria-label="Festivals of Mysore">
+    <div class="container">
+      <div class="text-center fade-in" style="margin-bottom:44px;">
+        <div class="section-label" aria-hidden="true">Celebrations</div>
+        <h2 class="section-title">Festivals &amp; <span class="text-gold">Celebrations</span></h2>
+        <p class="section-subtitle" style="margin:8px auto 0;">Mysore celebrates life with colour, music, and grandeur
+          throughout the year.</p>
+      </div>
+      <div class="grid-3 fade-in">
+        <article class="festival-card">
+          <img class="festival-card-img"
+            src="https://images.unsplash.com/photo-1659126574791-13313aa424bd?auto=format&fit=crop&w=700&q=80"
+            alt="Mysore Palace lit during Dasara celebrations" loading="lazy" />
+          <div class="festival-card-body">
+            <div class="festival-month">October</div>
+            <h3>Dasara â€“ Nadahabba</h3>
+            <p>Karnataka's state festival. 10 days of elephant processions, cultural programs, and a spectacular finale
+              at the illuminated palace. Draws over 1 million visitors annually.</p>
+          </div>
+        </article>
+
+        <article class="festival-card">
+          <img class="festival-card-img"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQs02iPOJ56d3ht5Dt9wdVqegkEnAq33k8i8A&s"
+            alt="Mysore Palace and city during Deepavali Festival of Lights" loading="lazy" />
+          <div class="festival-card-body">
+            <div class="festival-month">October / November</div>
+            <h3>Deepavali</h3>
+            <p>The Festival of Lights transforms Mysore into a shimmering wonderland. The palace illumination reaches
+              its peak, and fireworks light up Chamundi Hills.</p>
+          </div>
+        </article>
+
+        <article class="festival-card">
+          <img class="festival-card-img"
+            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9dXWp4z0eOPiF6VuEzrxj2ne-pHIkpfcZ_A&s"
+            alt="Flower show and heritage gardens Mysore" loading="lazy" />
+          <div class="festival-card-body">
+            <div class="festival-month">February</div>
+            <h3>Varuna Habba â€“ Flower Show</h3>
+            <p>Annual horticultural festival in the Mysore Palace grounds with elaborate floral art, exotic plants, and
+              landscape competitions attracting thousands of enthusiasts.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUOTE -->
+  <section style="padding:50px 2rem;background:var(--cream-dark);">
+    <div class="container">
+      <div class="quote-block fade-in" role="blockquote">
+        <p class="quote-text">"Mysore has its own rhythm â€” measured, majestic, and deeply rooted in tradition. It is a
+          city that commands reverence and rewards patience with extraordinary beauty."</p>
+        <div class="quote-author">â€” Karnataka Tourism Board</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- NEWSLETTER -->
+  <section class="section section-royal" id="newsletter" aria-label="Newsletter subscription">
+    <div class="container">
+      <div class="grid-2" style="align-items:center;gap:48px;">
+        <div class="fade-in">
+          <div class="section-label" aria-hidden="true">Stay Updated</div>
+          <h2 class="section-title text-gold">Get Mysore Travel<br />Tips &amp; Updates</h2>
+          <p style="color:rgba(255,255,255,0.65);font-size:0.93rem;line-height:1.8;margin-top:8px;">Subscribe for
+            festival dates, new spots, seasonal travel tips, and exclusive itineraries from local experts.</p>
+          <form class="newsletter-form" id="newsletterForm" aria-label="Newsletter signup"
+            onsubmit="handleNewsletter(event)">
+            <input type="email" class="newsletter-input" placeholder="Enter your email address" id="newsletter-email"
+              aria-label="Email address" required />
+            <button type="submit" class="btn btn-gold" id="newsletter-submit">Subscribe</button>
+          </form>
+        </div>
+        <div class="fade-in fade-in-delay-2" style="display:flex;flex-direction:column;gap:18px;">
+          <div
+            style="background:rgba(255,255,255,0.06);border:1px solid rgba(201,147,58,0.2);border-radius:14px;padding:22px;color:var(--white);">
+            <div style="font-size:1.4rem;margin-bottom:8px;"><i class="fas fa-calendar-star ic"></i></div>
+            <h4 style="font-family:'Playfair Display',serif;margin-bottom:5px;">Best Time to Visit</h4>
+            <p style="font-size:0.85rem;color:rgba(255,255,255,0.65);">October for Dasara fills the city with colour.
+              Otherwise Octoberâ€“March for 22Â°Câ€“30Â°C pleasant weather.</p>
+          </div>
+          <div
+            style="background:rgba(255,255,255,0.06);border:1px solid rgba(201,147,58,0.2);border-radius:14px;padding:22px;color:var(--white);">
+            <div style="font-size:1.4rem;margin-bottom:8px;"><i class="fas fa-train ic"></i></div>
+            <h4 style="font-family:'Playfair Display',serif;margin-bottom:5px;">Getting There</h4>
+            <p style="font-size:0.85rem;color:rgba(255,255,255,0.65);">3-hour drive from Bengaluru. Direct trains from
+              Chennai, Mumbai, Delhi. Local tuk-tuks and cabs for city travel.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" style="display:inline-flex;">
+          <div class="logo-emblem">ðŸ°</div>
+          <div class="logo-text"><span class="logo-title">MYSORE</span><span class="logo-sub">Tourism Guide</span></div>
+        </a>
+        <p>Your complete guide to the City of Palaces â€“ discover heritage, flavours, art, and adventure in Karnataka's
+          royal heartland.</p>
+        <div class="footer-social" role="list">
+          <div class="social-btn" role="listitem" title="Facebook" aria-label="Facebook"><i
+              class="fab fa-facebook-f ic"></i></div>
+          <div class="social-btn" role="listitem" title="Instagram" aria-label="Instagram"><i
+              class="fab fa-instagram ic"></i></div>
+          <div class="social-btn" role="listitem" title="YouTube" aria-label="YouTube"><i class="fab fa-youtube ic"></i>
+          </div>
+          <div class="social-btn" role="listitem" title="Twitter" aria-label="Twitter"><i
+              class="fab fa-x-twitter ic"></i></div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="tourist-places.html">Tourist Places</a></li>
+          <li><a href="food.html">Special Food</a></li>
+          <li><a href="art-culture.html">Art &amp; Culture</a></li>
+          <li><a href="trip-plan.html">Trip Planner</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Top Sights</h4>
+        <ul>
+          <li><a href="tourist-places.html#palace">Mysore Palace</a></li>
+          <li><a href="tourist-places.html#chamundi">Chamundi Hills</a></li>
+          <li><a href="tourist-places.html#zoo">Mysuru Zoo</a></li>
+          <li><a href="tourist-places.html#brindavan">Brindavan Gardens</a></li>
+          <li><a href="tourist-places.html#srirangapatna">Srirangapatna</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><span><i class="fas fa-map-marker-alt ic"></i> Mysuru, Karnataka 570001</span></li>
+          <li><span><i class="fas fa-phone ic"></i> +91 821 242 2096</span></li>
+          <li><span><i class="fas fa-envelope ic"></i> info@mysoretourism.in</span></li>
+          <li><span><i class="fas fa-clock ic"></i> Open 24/7 Online</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>Â© 2026 Mysore Tourism Guide Â· All rights reserved</span>
+      <span>developed by Udbhavi, Tarun, suppreeth</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    /* â”€â”€ Hero Auto-Slider â”€â”€ */
+    (function () {
+      const slides = document.querySelectorAll('.hero-slide');
+      const dots = document.querySelectorAll('.hero-dot');
+      const slideNum = document.getElementById('slideNum');
+      let current = 0, timer;
+
+      function goTo(n) {
+        slides[current].classList.remove('active');
+        dots[current].classList.remove('active');
+        current = (n + slides.length) % slides.length;
+        slides[current].classList.add('active');
+        dots[current].classList.add('active');
+        if (slideNum) slideNum.textContent = String(current + 1).padStart(2, '0');
+      }
+      function next() { goTo(current + 1); }
+      function startAuto() { clearInterval(timer); timer = setInterval(next, 5000); }
+
+      dots.forEach((dot, i) => dot.addEventListener('click', () => { goTo(i); startAuto(); }));
+
+      document.addEventListener('keydown', e => {
+        if (e.key === 'ArrowRight') { goTo(current + 1); startAuto(); }
+        if (e.key === 'ArrowLeft') { goTo(current - 1); startAuto(); }
+      });
+
+      let tx = 0;
+      const hero = document.querySelector('.hero');
+      hero.addEventListener('touchstart', e => { tx = e.touches[0].clientX; }, { passive: true });
+      hero.addEventListener('touchend', e => {
+        const dx = e.changedTouches[0].clientX - tx;
+        if (Math.abs(dx) > 40) { goTo(dx < 0 ? current + 1 : current - 1); startAuto(); }
+      }, { passive: true });
+
+      startAuto();
+    })();
+
+    /* â”€â”€ Newsletter â”€â”€ */
+    function handleNewsletter(e) {
+      e.preventDefault();
+      const btn = document.getElementById('newsletter-submit');
+      btn.textContent = 'âœ“ Subscribed!';
+      btn.style.background = 'linear-gradient(135deg,#4CAF50,#2E7D32)';
+      setTimeout(() => {
+        btn.textContent = 'Subscribe'; btn.style.background = '';
+        document.getElementById('newsletter-email').value = '';
+      }, 3000);
+    }
+  </script>
+</body>
+
+</html>

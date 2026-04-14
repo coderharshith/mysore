@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mysore Special Food | Traditional Dishes, Sweets & Restaurants</title>
+  <meta name="description"
+    content="Explore the iconic cuisine of Mysore – Mysore Pak, Mysore Masala Dosa, Bisi Bele Bath, Mysore Rasam, Chiroti and where to eat them. A complete food guide." />
+  <link rel="stylesheet" href="styles.css" />
+  <style>
+    /* FOOD PAGE STYLES */
+    .food-hero-title em {
+      display: block;
+      color: var(--gold-light);
+      font-style: normal;
+    }
+
+    /* DISH CARD */
+    .dish-card {
+      background: var(--surface-mid);
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.4);
+      border: 1px solid rgba(201,147,58,0.1);
+      transition: var(--transition);
+      position: relative;
+    }
+
+    .dish-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      border-color: rgba(201,147,58,0.3);
+    }
+
+    .dish-img-wrap {
+      height: 220px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .dish-img-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .dish-card:hover .dish-img-wrap img {
+      transform: scale(1.08);
+    }
+
+    .dish-veg {
+      position: absolute;
+      top: 12px;
+      left: 12px;
+      background: rgba(255, 255, 255, 0.95);
+      border: 1.5px solid #4CAF50;
+      border-radius: 4px;
+      width: 22px;
+      height: 22px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 10px;
+    }
+
+    .dish-rating-badge {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(26, 10, 59, 0.85);
+      backdrop-filter: blur(8px);
+      color: var(--gold);
+      padding: 4px 10px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 700;
+    }
+
+    .dish-body {
+      padding: 22px;
+    }
+
+    .dish-category {
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      color: var(--gold);
+      text-transform: uppercase;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+
+    .dish-name {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.2rem;
+      color: var(--text-dark);
+      margin-bottom: 10px;
+    }
+
+    .dish-desc {
+      font-size: 0.87rem;
+      color: var(--text-mid);
+      line-height: 1.75;
+      margin-bottom: 14px;
+    }
+
+    .dish-facts {
+      display: flex;
+      gap: 14px;
+      border-top: 1px solid rgba(201, 147, 58, 0.15);
+      padding-top: 14px;
+      flex-wrap: wrap;
+    }
+
+    .dish-fact {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    /* HERO DISH – Full width feature */
+    .hero-dish {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: var(--shadow-royal);
+      min-height: 480px;
+      margin-bottom: 48px;
+    }
+
+    .hero-dish-img {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-dish-img img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.8s ease;
+    }
+
+    .hero-dish:hover .hero-dish-img img {
+      transform: scale(1.04);
+    }
+
+    .hero-dish-info {
+      background: linear-gradient(135deg, var(--surface) 0%, var(--surface-mid) 100%);
+      padding: 48px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      color: var(--text-dark);
+    }
+
+    .hero-dish-info .dish-category {
+      font-size: 0.78rem;
+      margin-bottom: 12px;
+    }
+
+    .hero-dish-info h2 {
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      margin-bottom: 16px;
+      line-height: 1.2;
+    }
+
+    .hero-dish-info p {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.75);
+      line-height: 1.8;
+      margin-bottom: 24px;
+    }
+
+    .ingredient-chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 28px;
+    }
+
+    .ingredient-chip {
+      background: rgba(201, 147, 58, 0.15);
+      border: 1px solid rgba(201, 147, 58, 0.35);
+      color: var(--gold-light);
+      padding: 6px 14px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+    }
+
+    /* RECIPE ACCORDION */
+    .accordion-item {
+      background: var(--surface-mid);
+      border-radius: 12px;
+      margin-bottom: 10px;
+      overflow: hidden;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.3);
+      border: 1px solid rgba(201, 147, 58, 0.15);
+    }
+
+    .accordion-btn {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 18px 22px;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      font-family: 'Playfair Display', serif;
+      font-size: 1rem;
+      color: var(--text-dark);
+      font-weight: 600;
+      transition: var(--transition);
+    }
+
+    .accordion-btn:hover {
+      background: rgba(201, 147, 58, 0.05);
+    }
+
+    .accordion-btn .acc-arrow {
+      font-size: 1.2rem;
+      transition: transform 0.3s;
+    }
+
+    .accordion-item.open .acc-arrow {
+      transform: rotate(90deg);
+    }
+
+    .accordion-content {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.4s ease, padding 0.3s;
+      padding: 0 22px;
+    }
+
+    .accordion-item.open .accordion-content {
+      max-height: 400px;
+      padding: 0 22px 20px;
+    }
+
+    .accordion-content p,
+    .accordion-content li {
+      font-size: 0.88rem;
+      color: var(--text-mid);
+      line-height: 1.7;
+    }
+
+    .accordion-content li {
+      margin-bottom: 4px;
+      padding-left: 16px;
+      position: relative;
+    }
+
+    .accordion-content li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      color: var(--gold);
+    }
+
+    /* RESTAURANT CARDS */
+    .restaurant-card {
+      background: var(--surface-mid);
+      border-radius: 14px;
+      padding: 22px;
+      display: flex;
+      gap: 18px;
+      align-items: flex-start;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      border: 1px solid rgba(201, 147, 58, 0.12);
+      transition: var(--transition);
+    }
+
+    .restaurant-card:hover {
+      border-color: rgba(201, 147, 58, 0.4);
+      transform: translateX(5px);
+      box-shadow: 0 8px 28px rgba(0,0,0,0.5);
+    }
+
+    .restaurant-emoji {
+      font-size: 2.2rem;
+      flex-shrink: 0;
+    }
+
+    .restaurant-info h4 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.05rem;
+      color: var(--text-dark);
+      margin-bottom: 4px;
+    }
+
+    .restaurant-info .loc {
+      font-size: 0.8rem;
+      color: var(--gold);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .restaurant-info p {
+      font-size: 0.82rem;
+      color: var(--text-mid);
+      line-height: 1.6;
+    }
+
+    .restaurant-rating {
+      margin-left: auto;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--gold);
+      flex-shrink: 0;
+    }
+
+    /* SWEET STRIP */
+    .sweet-strip {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 16px;
+      margin-top: 36px;
+    }
+
+    .sweet-card {
+      background: var(--surface-mid);
+      border-radius: 16px;
+      overflow: hidden;
+      text-align: center;
+      box-shadow: 0 4px 16px rgba(0,0,0,0.4);
+      border: 1px solid rgba(201,147,58,0.1);
+      transition: var(--transition);
+    }
+
+    .sweet-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 16px 40px rgba(0,0,0,0.55);
+      border-color: rgba(201,147,58,0.3);
+    }
+
+    .sweet-card img {
+      width: 100%;
+      height: 150px;
+      object-fit: cover;
+    }
+
+    .sweet-card .name {
+      font-family: 'Playfair Display', serif;
+      font-size: 0.95rem;
+      color: var(--text-dark);
+      padding: 12px 8px 4px;
+      font-weight: 600;
+    }
+
+    .sweet-card .desc {
+      font-size: 0.75rem;
+      color: var(--text-light);
+      padding: 0 8px 12px;
+      line-height: 1.5;
+    }
+
+    @media (max-width:1024px) {
+      .sweet-strip {
+        grid-template-columns: repeat(3, 1fr);
+      }
+    }
+
+    @media (max-width:768px) {
+      .hero-dish {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-dish-info {
+        padding: 28px;
+      }
+
+      .hero-dish-info h2 {
+        font-size: 1.6rem;
+      }
+
+      .sweet-strip {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- NAVBAR -->
+  <nav class="navbar transparent" role="navigation" aria-label="Main navigation">
+    <div class="nav-container">
+      <a href="index.html" class="nav-logo" aria-label="Mysore Tourism Home">
+        <div class="logo-emblem" aria-hidden="true">🏰</div>
+        <div class="logo-text">
+          <span class="logo-title">MYSORE</span>
+          <span class="logo-sub">Tourism Guide</span>
+        </div>
+      </a>
+      <ul class="nav-links" role="list">
+        <li><a href="index.html" class="nav-link">Home</a></li>
+        <li><a href="tourist-places.html" class="nav-link">Tourist Places</a></li>
+        <li><a href="food.html" class="nav-link active">Special Food</a></li>
+        <li><a href="art-culture.html" class="nav-link">Art & Culture</a></li>
+        <li><a href="trip-plan.html" class="nav-cta btn">Plan Your Trip</a></li>
+      </ul>
+      <button class="hamburger" id="hamburger" aria-label="Toggle navigation" aria-expanded="false">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
+  </nav>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="index.html" class="nav-link"><i class="fas fa-home ic"></i> Home</a>
+    <a href="tourist-places.html" class="nav-link"><i class="fas fa-landmark ic"></i> Tourist Places</a>
+    <a href="food.html" class="nav-link"><i class="fas fa-utensils ic"></i> Special Food</a>
+    <a href="art-culture.html" class="nav-link"><i class="fas fa-paint-brush ic"></i> Art &amp; Culture</a>
+    <a href="trip-plan.html" class="nav-link nav-cta" style="margin-top:8px;"><i class="fas fa-map ic"></i> Plan Your
+      Trip</a>
+  </div>
+
+  <!-- HERO -->
+  <section class="page-hero" id="page-hero" aria-label="Mysore Special Food header">
+    <div class="page-hero-bg"
+      style="background-image:url('https://images.unsplash.com/photo-1589301760014-d929f3979dbc?w=1800&q=85');"
+      role="img" aria-label="Colorful traditional South Indian food spread"></div>
+    <div class="page-hero-overlay"></div>
+    <div class="page-hero-content">
+      <div class="page-hero-tag" aria-hidden="true">Mysore Cuisine</div>
+      <h1 class="food-hero-title">Mysore <em>Special Food</em></h1>
+      <p>A culinary kingdom of rich spices, royal recipes, golden sweets, and centuries-old traditions passed through
+        generations of master cooks.</p>
+    </div>
+    <div class="hero-scroll-hint" aria-hidden="true">
+      <div class="scroll-line"></div>
+      <span>Scroll</span>
+    </div>
+  </section>
+
+  <!-- INTRO + FEATURED DISH -->
+  <section class="section section-cream" id="signature-dishes" aria-label="Signature dishes of Mysore">
+    <div class="container">
+      <div class="text-center fade-in" style="margin-bottom:48px;">
+        <div class="section-label" aria-hidden="true">Signature Flavours</div>
+        <h2 class="section-title">The Legendary Tastes<br />of <span class="text-gold">Mysore</span></h2>
+        <p class="section-subtitle" style="margin:16px auto 0;">Mysore's food culture blends royal court recipes with
+          everyday street food brilliance. Here are the iconic dishes every visitor must taste.</p>
+      </div>
+
+      <!-- HERO DISH: MYSORE PAK -->
+      <div class="hero-dish fade-in" role="article" aria-label="Mysore Pak - featured dish" id="mysorepak">
+        <div class="hero-dish-img">
+          <img src="images/mysore_pak_sweet.png"
+            alt="Mysore Pak - golden dense sweet made from besan, ghee and sugar in the royal tradition"
+            loading="eager" />
+        </div>
+        <div class="hero-dish-info">
+          <div class="dish-category">🏆 Most Iconic · Sweet</div>
+          <h2>Mysore Pak</h2>
+          <p>Created accidentally in 1935 in the kitchens of the Mysore Palace by royal chef Kakasura Madappa for
+            Maharaja Krishnaraja Wadiyar IV, Mysore Pak is a dense, ghee-soaked sweet made from besan (gram flour), pure
+            ghee, and sugar. The palace version is crumbly with a melt-in-mouth texture unlike the softer commercial
+            versions.</p>
+          <div class="ingredient-chips" aria-label="Key ingredients">
+            <span class="ingredient-chip">🧈 Pure Ghee</span>
+            <span class="ingredient-chip">🫘 Besan Flour</span>
+            <span class="ingredient-chip">🍬 Sugar Syrup</span>
+            <span class="ingredient-chip">🌰 Cardamom</span>
+          </div>
+          <div style="display:flex;gap:12px;flex-wrap:wrap;">
+            <span style="background:rgba(255,255,255,0.1);padding:8px 16px;border-radius:20px;font-size:0.82rem;">🏠
+              Must Buy: Sri Krishna Sweets</span>
+            <span style="background:rgba(255,255,255,0.1);padding:8px 16px;border-radius:20px;font-size:0.82rem;">💰
+              ₹30–50 per piece</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- FOOD FILTER -->
+      <div class="filter-pills fade-in" role="group" aria-label="Filter dishes by category">
+        <button class="pill active" data-filter="all">All Dishes</button>
+        <button class="pill" data-filter="breakfast">Breakfast</button>
+        <button class="pill" data-filter="main">Main Course</button>
+        <button class="pill" data-filter="sweet">Sweets</button>
+        <button class="pill" data-filter="snack">Snacks & Street</button>
+        <button class="pill" data-filter="drink">Drinks</button>
+      </div>
+
+      <!-- DISHES GRID -->
+      <div class="grid-3" id="dishesGrid">
+
+        <article class="dish-card fade-in fade-in-delay-1" data-category="breakfast" role="article">
+          <div class="dish-img-wrap">
+            <img src="images/mysore_masala_dosa.png" alt="Mysore Masala Dosa with red chutney and potato filling"
+              loading="lazy" />
+            <div class="dish-veg">🟢</div>
+            <div class="dish-rating-badge" aria-label="Rating 4.9">⭐ 4.9</div>
+          </div>
+          <div class="dish-body">
+            <div class="dish-category">Breakfast / Brunch</div>
+            <h3 class="dish-name">Mysore Masala Dosa</h3>
+            <p class="dish-desc">The legendary crispy rice crepe with a generous smear of spicy Mysore chutney (made
+              from dried red chilies, garlic, and roasted chana dal), stuffed with spiced potato masala. The distinctive
+              redness of the chutney inside is what makes a <em>Mysore</em> Masala Dosa different from any other dosa in
+              the world.</p>
+            <div class="dish-facts">
+              <span class="dish-fact">🍽️ Breakfast staple</span>
+              <span class="dish-fact">💰 ₹60–120</span>
+              <span class="dish-fact">🌶️ Medium spicy</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="dish-card fade-in fade-in-delay-2" data-category="main" role="article">
+          <div class="dish-img-wrap">
+            <img src="images/bisi_bele_bath.png" alt="Bisi Bele Bath - Karnataka's favourite rice dish"
+              loading="lazy" />
+            <div class="dish-veg">🟢</div>
+            <div class="dish-rating-badge" aria-label="Rating 4.8">⭐ 4.8</div>
+          </div>
+          <div class="dish-body">
+            <div class="dish-category">Main Course</div>
+            <h3 class="dish-name">Bisi Bele Bath</h3>
+            <p class="dish-desc">Literally "hot lentil rice dish." A royal Karnataka classic — a wholesome one-pot dish
+              of rice, toor dal, mixed vegetables, tamarind, and an aromatic spice mix (Bisi Bele Bath powder) with
+              cloves, cinnamon, and dried coconut. Served piping hot with ghee on top and boondi or papad on the side.
+            </p>
+            <div class="dish-facts">
+              <span class="dish-fact">🍽️ Lunch / Dinner</span>
+              <span class="dish-fact">💰 ₹80–150</span>
+              <span class="dish-fact">♨️ Served hot</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="dish-card fade-in fade-in-delay-3" data-category="sweet" role="article">
+          <div class="dish-img-wrap">
+            <img src="images/mysore_chiroti_sweet.png" alt="Chiroti - flaky layered sweet pastry dusted with sugar"
+              loading="lazy" />
+            <div class="dish-veg">🟢</div>
+            <div class="dish-rating-badge" aria-label="Rating 4.7">⭐ 4.7</div>
+          </div>
+          <div class="dish-body">
+            <div class="dish-category">Royal Sweet</div>
+            <h3 class="dish-name">Chiroti (Chirote)</h3>
+            <p class="dish-desc">A royal Karnataka and Maharashtra pastry — thin, layered sheets of deep-fried dough
+              dusted with fine sugar powder and cardamom. Originally served at Mysore royal banquets, Chiroti is
+              melt-in-mouth, flaky, and faintly sweet. Often dipped in almond milk (badam milk) for a richer experience.
+            </p>
+            <div class="dish-facts">
+              <span class="dish-fact">🏰 Royal origin</span>
+              <span class="dish-fact">💰 ₹20–40 per piece</span>
+              <span class="dish-fact">🎊 Festival special</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="dish-card fade-in fade-in-delay-1" data-category="breakfast" role="article">
+          <div class="dish-img-wrap">
+            <img src="images/mysore_idli_vada.png" alt="Mysore Vada - crispy savory lentil fritters" loading="lazy" />
+            <div class="dish-veg">🟢</div>
+            <div class="dish-rating-badge" aria-label="Rating 4.6">⭐ 4.6</div>
+          </div>
+          <div class="dish-body">
+            <div class="dish-category">Breakfast / Snack</div>
+            <h3 class="dish-name">Batata Vada & Idli Vada</h3>
+            <p class="dish-desc">Soft, fluffy idlis paired with crispy, golden medu vadas (made from urad dal) served
+              with coconut chutney and sambar. Mysore's darshinis (eateries) serve these fresh from 7–11 AM. The local
+              twist is the uniquely aromatic sambar with curry leaves and special masalas unique to each restaurant.</p>
+            <div class="dish-facts">
+              <span class="dish-fact">🍽️ Breakfast classic</span>
+              <span class="dish-fact">💰 ₹40–80</span>
+              <span class="dish-fact">🌿 Vegan-friendly</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="dish-card fade-in fade-in-delay-2" data-category="main" role="article">
+          <div class="dish-img-wrap">
+            <img src="images/mysore_rasam.png" alt="Mysore Rasam - thin peppery South Indian soup" loading="lazy" />
+            <div class="dish-veg">🟢</div>
+            <div class="dish-rating-badge" aria-label="Rating 4.7">⭐ 4.7</div>
+          </div>
+          <div class="dish-body">
+            <div class="dish-category">Soup / Side Dish</div>
+            <h3 class="dish-name">Mysore Rasam</h3>
+            <p class="dish-desc">A thin, tangy, peppery broth made from tamarind juice, tomatoes, toor dal water, and
+              Mysore rasam powder — a fiery blend of dried red chilies, coriander, and cumin roasted with asafoetida.
+              Sipped as soup or mixed with rice. The Mysore Rasam is spicier and more aromatic than Tamil Nadu versions.
+            </p>
+            <div class="dish-facts">
+              <span class="dish-fact">🍽️ Lunch / Dinner</span>
+              <span class="dish-fact">💰 ₹30–60</span>
+              <span class="dish-fact">🌶️ Spicy & Tangy</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="dish-card fade-in fade-in-delay-3" data-category="snack" role="article">
+          <div class="dish-img-wrap">
+            <img src="images/mysore_churmuri.png" alt="Churmuri - puffed rice chaat street food in Mysore"
+              loading="lazy" />
+            <div class="dish-veg">🟢</div>
+            <div class="dish-rating-badge" aria-label="Rating 4.5">⭐ 4.5</div>
+          </div>
+          <div class="dish-body">
+            <div class="dish-category">Street Food / Snack</div>
+            <h3 class="dish-name">Churmuri (Puffed Rice Chaat)</h3>
+            <p class="dish-desc">Mysore's quintessential street snack — puffed rice tossed with freshly grated coconut,
+              onions, tomatoes, green chilies, coriander leaves, lime juice, and a drizzle of coconut oil served in a
+              newspaper cone. An evening institution in Mysore streets and Devaraja Market area.</p>
+            <div class="dish-facts">
+              <span class="dish-fact">🛒 Street food</span>
+              <span class="dish-fact">💰 ₹15–30</span>
+              <span class="dish-fact">⚡ Quick snack</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="dish-card fade-in fade-in-delay-1" data-category="sweet" role="article">
+          <div class="dish-img-wrap">
+            <img src="images/rave_kesari_halwa.png" alt="Rave Kesari - saffron semolina sweet from Mysore"
+              loading="lazy" />
+            <div class="dish-veg">🟢</div>
+            <div class="dish-rating-badge" aria-label="Rating 4.6">⭐ 4.6</div>
+          </div>
+          <div class="dish-body">
+            <div class="dish-category">Sweet / Dessert</div>
+            <h3 class="dish-name">Rave Kesari (Semolina Halwa)</h3>
+            <p class="dish-desc">A bright orange semolina (sooji/rava) dessert scented with saffron and cardamom,
+              studded with cashews and raisins fried in golden ghee. In Mysore, Kesari is a temple prasad and a
+              breakfast-table sweet. Its distinctive deep saffron colour comes from generous use of natural saffron or
+              food-grade colour.</p>
+            <div class="dish-facts">
+              <span class="dish-fact">🛕 Temple prasad</span>
+              <span class="dish-fact">💰 ₹25–60</span>
+              <span class="dish-fact">🌼 Saffron perfumed</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="dish-card fade-in fade-in-delay-2" data-category="drink" role="article">
+          <div class="dish-img-wrap">
+            <img src="images/mysore_filter_coffee.png" alt="Mysore Filter Coffee served in a traditional tumbler"
+              loading="lazy" />
+            <div class="dish-veg">🟢</div>
+            <div class="dish-rating-badge" aria-label="Rating 5">⭐ 5.0</div>
+          </div>
+          <div class="dish-body">
+            <div class="dish-category">Beverage · South Indian</div>
+            <h3 class="dish-name">Mysore Filter Coffee</h3>
+            <p class="dish-desc">The lifeblood of Mysore mornings. Coffee decoction (from a brass filter) mixed with
+              frothy hot milk, served in a traditional stainless steel tumbler-and-davara set. Mysore Coffee blends
+              Arabica from nearby Coorg estates with chicory for a rich, slightly bitter, aromatic cup unlike any café
+              coffee.</p>
+            <div class="dish-facts">
+              <span class="dish-fact">☕ Morning ritual</span>
+              <span class="dish-fact">💰 ₹15–30</span>
+              <span class="dish-fact">🌿 Coorg Arabica</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="dish-card fade-in fade-in-delay-3" data-category="sweet" role="article">
+          <div class="dish-img-wrap">
+            <img src="https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?w=600&q=75"
+              alt="Coconut Burfi - sweet coconut candy from Karnataka" loading="lazy" />
+            <div class="dish-veg">🟢</div>
+            <div class="dish-rating-badge" aria-label="Rating 4.5">⭐ 4.5</div>
+          </div>
+          <div class="dish-body">
+            <div class="dish-category">Sweet · Indian Fudge</div>
+            <h3 class="dish-name">Coconut Burfi & Kaju Katli</h3>
+            <p class="dish-desc">Mysore is renowned for its mithai shops. Coconut Burfi (from fresh grated coconut,
+              sugar, and cardamom) and Kaju Katli (cashew paste and sugar, silver-leafed) are Mysore specialties. Every
+              sweet shop in Devaraja Market area has its own centuries-old recipe passed down through families.</p>
+            <div class="dish-facts">
+              <span class="dish-fact">🥥 Coconut rich</span>
+              <span class="dish-fact">💰 ₹60–200/100g</span>
+              <span class="dish-fact">🎁 Great souvenir</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- SWEETS SECTION -->
+  <section class="section section-royal" id="sweets" aria-label="Mysore sweets and desserts">
+    <div class="container">
+      <div class="text-center fade-in" style="margin-bottom:36px;">
+        <div class="section-label" aria-hidden="true">Mithai Heaven</div>
+        <h2 class="section-title text-gold">Sweet Mysore</h2>
+        <p style="color:rgba(255,255,255,0.65);font-size:0.95rem;margin-top:10px;">Mysore's sweet tradition goes back
+          600+ years to the royal court kitchens.</p>
+      </div>
+
+      <div class="sweet-strip fade-in">
+        <div class="sweet-card" role="article">
+          <img src="images/mysore_pak_sweet.png" alt="Mysore Pak golden sweet" loading="lazy" />
+          <div class="name">Mysore Pak</div>
+          <div class="desc">Besan, ghee, sugar. The original since 1935.</div>
+        </div>
+        <div class="sweet-card" role="article">
+          <img src="images/mysore_chiroti_sweet.png" alt="Chiroti flaky pastry" loading="lazy" />
+          <div class="name">Chiroti</div>
+          <div class="desc">Royal layered pastry with sugar dust.</div>
+        </div>
+        <div class="sweet-card" role="article">
+          <img src="images/rave_kesari_halwa.png" alt="Rave Kesari saffron halwa" loading="lazy" />
+          <div class="name">Rave Kesari</div>
+          <div class="desc">Saffron semolina halwa with cashews.</div>
+        </div>
+        <div class="sweet-card" role="article">
+          <img src="https://images.unsplash.com/photo-1606925797300-0b35e9d1794e?w=300&q=70" alt="Coconut Burfi"
+            loading="lazy" />
+          <div class="name">Coconut Burfi</div>
+          <div class="desc">Fresh coconut and cardamom fudge.</div>
+        </div>
+        <div class="sweet-card" role="article">
+          <img src="https://images.unsplash.com/photo-1609951651556-5334e2706168?w=300&q=70"
+            alt="Badam Milk almond drink" loading="lazy" />
+          <div class="name">Badam Milk</div>
+          <div class="desc">Warm almond milk with saffron & cardamom.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECIPE SECTION -->
+  <section class="section section-cream-dark" id="recipes" aria-label="Mysore Pak recipe">
+    <div class="container">
+      <div class="grid-2" style="gap:60px;align-items:start;">
+        <div class="fade-in">
+          <div class="section-label" aria-hidden="true">Make at Home</div>
+          <h2 class="section-title">Recipe: <span class="text-gold">Mysore Pak</span></h2>
+          <p class="section-subtitle" style="margin-bottom:28px;">The legendary royal sweet you can recreate at home
+            with just 3 ingredients.</p>
+
+          <div id="recipeAccordion" role="list">
+            <div class="accordion-item open" role="listitem">
+              <button class="accordion-btn" aria-expanded="true" id="acc-ingredients">
+                <span>🧾 Ingredients (20 pieces)</span>
+                <span class="acc-arrow">›</span>
+              </button>
+              <div class="accordion-content">
+                <ul>
+                  <li>2 cups Besan (gram flour), sifted</li>
+                  <li>2.5 cups Pure Desi Ghee</li>
+                  <li>2 cups Sugar</li>
+                  <li>½ cup Water</li>
+                  <li>¼ tsp Cardamom powder</li>
+                  <li>A pinch of Baking soda (optional for porous texture)</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="accordion-item" role="listitem">
+              <button class="accordion-btn" aria-expanded="false" id="acc-steps">
+                <span>👨‍🍳 Method (Step by Step)</span>
+                <span class="acc-arrow">›</span>
+              </button>
+              <div class="accordion-content">
+                <ul>
+                  <li>Heat ghee in a heavy pan and fry besan on low flame till raw smell disappears (15 min).</li>
+                  <li>Dissolve sugar in water and cook to a single-thread consistency syrup.</li>
+                  <li>Slowly pour besan-ghee mixture into the syrup while stirring vigorously.</li>
+                  <li>Cook until the mixture starts leaving the sides of the pan and looks foamy.</li>
+                  <li>Add cardamom, pour into a greased tray, cool 10 mins, cut into pieces.</li>
+                </ul>
+              </div>
+            </div>
+
+            <div class="accordion-item" role="listitem">
+              <button class="accordion-btn" aria-expanded="false" id="acc-tips">
+                <span>💡 Chef's Tips</span>
+                <span class="acc-arrow">›</span>
+              </button>
+              <div class="accordion-content">
+                <p>Use only pure ghee (not dalda or vanaspati) for authentic flavour. The secret to palace-style Mysore
+                  Pak is generous ghee — don't reduce it. Cut while warm, not hot. Store in an airtight container for up
+                  to 2 weeks.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="fade-in fade-in-delay-2">
+          <img src="images/mysore_pak_sweet.png" alt="Mysore Pak golden pieces on a plate ready to serve"
+            style="width:100%;border-radius:20px;box-shadow:var(--shadow-royal);margin-bottom:24px;" loading="lazy" />
+          <div class="quote-block" style="margin:0;">
+            <p class="quote-text">"When I tasted Mysore Pak for the first time at the palace, I understood why food can
+              be royal."</p>
+            <div class="quote-author">— Food Historian, Karnataka</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESTAURANTS -->
+  <section class="section section-cream" id="restaurants" aria-label="Best restaurants in Mysore">
+    <div class="container">
+      <div class="text-center fade-in" style="margin-bottom:40px;">
+        <div class="section-label" aria-hidden="true">Where to Eat</div>
+        <h2 class="section-title">Best Restaurants<br />&amp; <span class="text-gold">Food Spots</span></h2>
+      </div>
+
+      <div style="display:flex;flex-direction:column;gap:16px;" class="fade-in">
+        <div class="restaurant-card" role="article">
+          <div class="restaurant-emoji" aria-hidden="true">🍽️</div>
+          <div class="restaurant-info">
+            <h4>Mylari Hotel</h4>
+            <div class="loc"><i class="fas fa-map-marker-alt ic"></i> Nazarbad, Mysore</div>
+            <p>The most famous Dosa restaurant in Mysore, open since 1936. Their neer dosa and masala dosa are
+              legendary. Very limited menu, cash only, long morning queues — worth every minute.</p>
+          </div>
+          <div class="restaurant-rating">⭐ 4.9</div>
+        </div>
+
+        <div class="restaurant-card" role="article">
+          <div class="restaurant-emoji" aria-hidden="true">🍰</div>
+          <div class="restaurant-info">
+            <h4>Sri Krishna Sweets</h4>
+            <div class="loc">📍 Sayyaji Rao Road, Mysore</div>
+            <p>The best Mysore Pak in the city, period. This shop has been making the original crumbly version since the
+              1950s. Also excellent for chiroti, rave kesari, and kaju katli. Buy a kilo to take home.</p>
+          </div>
+          <div class="restaurant-rating">⭐ 4.8</div>
+        </div>
+
+        <div class="restaurant-card" role="article">
+          <div class="restaurant-emoji" aria-hidden="true">🍛</div>
+          <div class="restaurant-info">
+            <h4>Hotel Dasaprakash</h4>
+            <div class="loc">📍 Gandhi Square, Mysore</div>
+            <p>A Mysore institution since 1956. Known for the thali (full South Indian meals) with unlimited rice,
+              sambar, rasam, curries, kootu, payasam. Excellent value for a royal spread at budget prices.</p>
+          </div>
+          <div class="restaurant-rating">⭐ 4.7</div>
+        </div>
+
+        <div class="restaurant-card" role="article">
+          <div class="restaurant-emoji" aria-hidden="true">☕</div>
+          <div class="restaurant-info">
+            <h4>Café Coffee Day (MG Road)</h4>
+            <div class="loc">📍 MG Road & Devaraja Market area</div>
+            <p>While the legacy filter coffee at local darshinis is the real experience, note that CCD was founded in
+              Chikmagalur, very close to Mysore. The local filter coffee at darshinis beats any café version hands down.
+            </p>
+          </div>
+          <div class="restaurant-rating">⭐ 4.3</div>
+        </div>
+
+        <div class="restaurant-card" role="article">
+          <div class="restaurant-emoji" aria-hidden="true">🍃</div>
+          <div class="restaurant-info">
+            <h4>Green Hotel Restaurant</h4>
+            <div class="loc">📍 Vinoba Road Heritage Hotel, Mysore</div>
+            <p>Situated in a gorgeous heritage building, this eco-friendly restaurant serves authentic Karnataka home
+              food. Profits support social welfare programs in the region. Try the Bisi Bele Bath and local pickles.</p>
+          </div>
+          <div class="restaurant-rating">⭐ 4.6</div>
+        </div>
+
+        <div class="restaurant-card" role="article">
+          <div class="restaurant-emoji" aria-hidden="true">🌙</div>
+          <div class="restaurant-info">
+            <h4>RRR Restaurant</h4>
+            <div class="loc">📍 Gandhi Square, Mysore</div>
+            <p>Famous for non-vegetarian Andhra-style meals. RRR's signature is unlimited rice thali with mutton curry,
+              chicken fry, and a dozen different chutneys. Popular with locals and tourists alike for hearty evening
+              meals.</p>
+          </div>
+          <div class="restaurant-rating">⭐ 4.5</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer" role="contentinfo">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <a href="index.html" class="nav-logo" style="display:inline-flex;">
+          <div class="logo-emblem">🏰</div>
+          <div class="logo-text">
+            <span class="logo-title">MYSORE</span>
+            <span class="logo-sub">Tourism Guide</span>
+          </div>
+        </a>
+        <p>Your complete guide to the City of Palaces – discover heritage, flavours, art, and adventure in Karnataka's
+          royal heartland.</p>
+        <div class="footer-social" role="list">
+          <div class="social-btn" role="listitem" title="Facebook"><i class="fab fa-facebook-f ic"></i></div>
+          <div class="social-btn" role="listitem" title="Instagram"><i class="fab fa-instagram ic"></i></div>
+          <div class="social-btn" role="listitem" title="YouTube"><i class="fab fa-youtube ic"></i></div>
+          <div class="social-btn" role="listitem" title="Twitter"><i class="fab fa-x-twitter ic"></i></div>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Explore</h4>
+        <ul>
+          <li><a href="tourist-places.html">Tourist Places</a></li>
+          <li><a href="food.html">Special Food</a></li>
+          <li><a href="art-culture.html">Art & Culture</a></li>
+          <li><a href="trip-plan.html">Trip Planner</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Must Try</h4>
+        <ul>
+          <li><a href="#mysorepak">Mysore Pak</a></li>
+          <li><a href="#dishesGrid">Masala Dosa</a></li>
+          <li><a href="#sweets">Chiroti</a></li>
+          <li><a href="#restaurants">Top Restaurants</a></li>
+        </ul>
+      </div>
+      <div class="footer-col">
+        <h4>Contact</h4>
+        <ul>
+          <li><span><i class="fas fa-map-marker-alt ic"></i> Mysuru, Karnataka 570001</span></li>
+          <li><span><i class="fas fa-phone ic"></i> +91 821 242 2096</span></li>
+          <li><span><i class="fas fa-envelope ic"></i> info@mysoretourism.in</span></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 Mysore Tourism Guide · All rights reserved</span>
+      <span>developed by Udbhavi, Tarun, suppreeth</span>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
