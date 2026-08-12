@@ -1,1 +1,1 @@
-# about mysore 
+# about mysore  detailed site
